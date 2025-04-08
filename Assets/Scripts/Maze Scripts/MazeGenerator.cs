@@ -20,6 +20,8 @@ public class MazeGenerator : MonoBehaviour {
     private float _timeToGenerate;
     private float _breakWaitTime;
 
+    public bool IsGenerating { get; private set; }
+
     //debug only
     private float _startTime;
     private float _endTime;
@@ -28,22 +30,33 @@ public class MazeGenerator : MonoBehaviour {
     IEnumerator Start() {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];
 
+        //try to find Maze GO, or instantiate it if not found
+        GameObject MazeGO = GameObject.Find("Maze");
+        if (MazeGO != null) {
+            Destroy(MazeGO);
+        }
+        MazeGO = new GameObject("Maze");
+
         for (int x = 0; x < _mazeWidth; x++) {
             for (int z = 0; z < _mazeHeight; z++) {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                _mazeGrid[x, z].transform.SetParent(MazeGO.transform);
             }
         }
-
+        CameraManager.Instance.SetCameraPos(_mazeWidth,_mazeHeight);
         int totalCells = _mazeWidth * _mazeHeight;
         _visitedCounter = totalCells;
         _breakWaitTime = _timeToGenerate / totalCells;
         Debug.Log("Break Wait Time = " + _breakWaitTime);
         _startTime = Time.time;
+        IsGenerating = true;
+        yield return new WaitForSeconds(_breakWaitTime);
         yield return GenerateMaze(null, _mazeGrid[0, 0]);
     }
 
     private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell) {
         currentCell.Visit();
+
         ClearWalls(previousCell, currentCell);
 
         yield return new WaitForSeconds(_breakWaitTime);
@@ -111,6 +124,8 @@ public class MazeGenerator : MonoBehaviour {
             Debug.Log("Started at: " + _startTime);
             Debug.Log("Ended at: " + _endTime);
             Debug.Log("Taking " + (_endTime - _startTime));
+            Debug.Log("Generation Complete!");
+            IsGenerating = false;
         }
 
         if (previousCell.transform.position.x < currentCell.transform.position.x) {
@@ -140,6 +155,8 @@ public class MazeGenerator : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if(Input.GetKeyDown(KeyCode.R)) {
+            StartCoroutine(Start());
+        }
     }
 }
