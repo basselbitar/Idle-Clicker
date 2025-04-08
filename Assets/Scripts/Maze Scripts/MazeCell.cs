@@ -37,7 +37,7 @@ public class MazeCell : MonoBehaviour
     public void ClearFrontWall() {
         _frontWall.SetActive(false);
     }
-
+     
     public void ClearBackWall() {
         _backWall.SetActive(false);
     }
