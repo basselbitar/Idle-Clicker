@@ -8,7 +8,7 @@ public class EnergyManager : MonoBehaviour {
     public float energyPerClick = 1f;
     public float currentEnergy => energy;
 
-    [SerializeField] private Sprite energyIcon;
+    public Sprite energyIcon;
 
     private void Awake() {
         // If an instance already exists, destroy this one to ensure only one instance exists
@@ -45,17 +45,15 @@ public class EnergyManager : MonoBehaviour {
 
         // Visually show the + n Energy Symbol on screen
         // Show floating popup
-        FloatingPopupManager.Instance.ShowPopup($"+{energyPerClick}", screenPosition, energyIcon);
+        FloatingPopupManager.Instance.ShowPopup($"+{energyPerClick}", screenPosition, FloatingPopupManager.PopupType.Gold);
     }
 
 
-    // Method to add energy
     public void AddEnergy(float amount) {
         energy += amount;
         //Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
     }
 
-    // Optionally, consume energy
     public void ConsumeEnergy(float amount) {
         if (energy >= amount) {
             energy -= amount;
