@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
     }
 
    public void SetCameraPos(int MazeWidth,  int MazeHeight) {
-        Debug.Log("Camera received " + MazeWidth + "x" + MazeHeight);
+        //Debug.Log("Camera received " + MazeWidth + "x" + MazeHeight);
         float xCoord = (MazeWidth * 1.0f / 2);
         float yCoord = (Mathf.Max(MazeWidth,MazeHeight) * 2);
         float zCoord = (MazeHeight * 1.0f / 2);

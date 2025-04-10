@@ -47,7 +47,7 @@ public class MazeGenerator : MonoBehaviour {
         int totalCells = _mazeWidth * _mazeHeight;
         _visitedCounter = totalCells;
         _breakWaitTime = _timeToGenerate / totalCells;
-        Debug.Log("Break Wait Time = " + _breakWaitTime);
+        //Debug.Log("Break Wait Time = " + _breakWaitTime);
         _startTime = Time.time;
         IsGenerating = true;
         yield return new WaitForSeconds(_breakWaitTime);
@@ -121,10 +121,10 @@ public class MazeGenerator : MonoBehaviour {
         _visitedCounter--;
         if (_visitedCounter == 1) {
             _endTime = Time.time;
-            Debug.Log("Started at: " + _startTime);
-            Debug.Log("Ended at: " + _endTime);
-            Debug.Log("Taking " + (_endTime - _startTime));
-            Debug.Log("Generation Complete!");
+            //Debug.Log("Started at: " + _startTime);
+            //Debug.Log("Ended at: " + _endTime);
+            //Debug.Log("Taking " + (_endTime - _startTime));
+            //Debug.Log("Generation Complete!");
             IsGenerating = false;
         }
 
