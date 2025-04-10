@@ -27,10 +27,10 @@ public class MazeGenerator : MonoBehaviour {
     private float _endTime;
     private float _visitedCounter;
 
-    IEnumerator Start() {
+    private void CreateAMaze() {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];
 
-        //try to find Maze GO, or instantiate it if not found
+        //try to find Maze GO, destroy it and instantiate a new one
         GameObject MazeGO = GameObject.Find("Maze");
         if (MazeGO != null) {
             Destroy(MazeGO);
@@ -43,15 +43,14 @@ public class MazeGenerator : MonoBehaviour {
                 _mazeGrid[x, z].transform.SetParent(MazeGO.transform);
             }
         }
-        CameraManager.Instance.SetCameraPos(_mazeWidth,_mazeHeight);
+        CameraManager.Instance.SetCameraPos(_mazeWidth, _mazeHeight);
         int totalCells = _mazeWidth * _mazeHeight;
         _visitedCounter = totalCells;
         _breakWaitTime = _timeToGenerate / totalCells;
         //Debug.Log("Break Wait Time = " + _breakWaitTime);
         _startTime = Time.time;
         IsGenerating = true;
-        yield return new WaitForSeconds(_breakWaitTime);
-        yield return GenerateMaze(null, _mazeGrid[0, 0]);
+        StartCoroutine(GenerateMaze(null, _mazeGrid[0, 0]));
     }
 
     private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell) {
@@ -156,7 +155,7 @@ public class MazeGenerator : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if(Input.GetKeyDown(KeyCode.R)) {
-            StartCoroutine(Start());
+            CreateAMaze();
         }
     }
 }

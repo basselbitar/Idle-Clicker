@@ -20,10 +20,36 @@ public class EnergyManager : MonoBehaviour {
         }
     }
 
+    private void OnEnable() {
+        // Subscribe to the InputManager's OnClick event to react to clicks
+        InputManager inputManager = FindObjectOfType<InputManager>();
+        if (inputManager != null) {
+            inputManager.OnClick += HandleClick;  // Subscribe to the click event
+        }
+    }
+
+    private void OnDisable() {
+        // Unsubscribe from the InputManager's OnClick event to prevent memory leaks
+        InputManager inputManager = FindObjectOfType<InputManager>();
+        if (inputManager != null) {
+            inputManager.OnClick -= HandleClick;  // Unsubscribe to avoid unnecessary calls
+        }
+    }
+
+    // Method to handle energy increase when click occurs
+    private void HandleClick(Vector2 screenPosition) {
+        // Add energy on click
+        AddEnergy(energyPerClick);
+
+        // Visually show the + n Energy Symbol on screen
+        //TODO
+    }
+
+
     // Method to add energy
     public void AddEnergy(float amount) {
         energy += amount;
-        Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
+        //Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
     }
 
     // Optionally, consume energy
