@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920f72bf005048745a3bc462090fe1fd, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  gold: 0
-  energy: 0
+  gold: 2
+  energy: 23

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake() {
         SaveManager.Load(playerStats);
+        ResourceUIManager.Instance.RefreshUI();
     }
 
     // Start is called before the first frame update
