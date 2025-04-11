@@ -4,10 +4,9 @@ public class EnergyManager : MonoBehaviour {
     // Static instance of the EnergyManager, which will be used globally  (Singleton Implementation)
     public static EnergyManager Instance { get; private set; }
 
-    private float energy;
     public float energyPerClick = 1f;
-    public float currentEnergy => energy;
 
+    public PlayerStats playerStats;
     public Sprite energyIcon;
 
     private void Awake() {
@@ -45,22 +44,17 @@ public class EnergyManager : MonoBehaviour {
 
         // Visually show the + n Energy Symbol on screen
         // Show floating popup
-        FloatingPopupManager.Instance.ShowPopup($"+{energyPerClick}", screenPosition, FloatingPopupManager.PopupType.Gold);
+        FloatingPopupManager.Instance.ShowPopup($"+{energyPerClick}", screenPosition, FloatingPopupManager.PopupType.Energy);
     }
 
 
     public void AddEnergy(float amount) {
-        energy += amount;
-        //Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
+        playerStats.AddEnergy(amount);
+        SaveManager.Save(playerStats);
     }
 
     public void ConsumeEnergy(float amount) {
-        if (energy >= amount) {
-            energy -= amount;
-            Debug.Log($"Energy consumed: {amount}, Remaining Energy: {energy}");
-        }
-        else {
-            Debug.Log("Not enough energy!");
-        }
+        playerStats.ConsumeEnergy(amount);
+        SaveManager.Save(playerStats);
     }
 }
