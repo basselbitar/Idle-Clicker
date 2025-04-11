@@ -7,24 +7,25 @@ public class PlayerStats : ScriptableObject {
 
     public void AddGold(float amount) {
         gold += amount;
-        Debug.Log($"Gold added: {amount}, Total Gold: {gold}");
+        //Debug.Log($"Gold added: {amount}, Total Gold: {gold}");
         ResourceUIManager.Instance.RefreshUI();
     }
 
     public void AddEnergy(float amount) {
         energy += amount;
-        Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
+        //Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
         ResourceUIManager.Instance.RefreshUI();
     }
 
     public void ConsumeGold(float amount) {
         if (gold >= amount) {
             gold -= amount;
-            Debug.Log($"Gold consumed: {amount}, Remaining Gold: {gold}");
+            //Debug.Log($"Gold consumed: {amount}, Remaining Gold: {gold}");
             ResourceUIManager.Instance.RefreshUI();
         }
         else {
             Debug.Log("Not enough gold!");
+            //TODO: color the gold UI red for a few seconds
         }
     }
 
