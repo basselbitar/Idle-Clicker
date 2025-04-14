@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class UpgradeManager : MonoBehaviour {
     public UpgradeCategory category;
@@ -9,23 +9,30 @@ public class UpgradeManager : MonoBehaviour {
     public Upgrade[] upgrades;       // List of all available upgrades
     public PlayerStats playerStats;
 
+    public List<UpgradeState> runtimeUpgrades;
+
     private void Start() {
+        Initialize();
         PopulateUpgrades();
+    }
+
+    private void Initialize() {
+        runtimeUpgrades = upgrades.Select(upgradeSO => new UpgradeState { data = upgradeSO }).ToList();
     }
 
     public void PopulateUpgrades() {
         DestroyAllChildren();
-        foreach (Upgrade upgrade in upgrades) {
+        foreach (UpgradeState upgradeState in runtimeUpgrades) {
             GameObject upgradeObject = Instantiate(upgradePrefab, upgradeParent);
             UpgradeUI ui = upgradeObject.GetComponent<UpgradeUI>();
             // Set the Text fields
-            ui.nameText.text = upgrade.upgradeName;
-            ui.descriptionText.text = upgrade.description;
-            ui.costText.text = "Cost: " + upgrade.cost;
-            ui.levelText.text = "lv. " + upgrade.level;
+            ui.nameText.text = upgradeState.data.upgradeName;
+            ui.descriptionText.text = upgradeState.data.description;
+            ui.costText.text = "Cost: " + upgradeState.CurrentCost;
+            ui.levelText.text = "lv. " + upgradeState.level;
 
             // Set the button click event (you can link a method here to handle the upgrade)
-            ui.purchaseButton.onClick.AddListener(() => HandleUpgradePurchase(upgrade));
+            ui.purchaseButton.onClick.AddListener(() => HandleUpgradePurchase(upgradeState));
         }
     }
 
@@ -35,18 +42,18 @@ public class UpgradeManager : MonoBehaviour {
         }
     }
 
-    private void HandleUpgradePurchase(Upgrade upgrade) {
+    private void HandleUpgradePurchase(UpgradeState upgradeState) {
         bool upgradeSuccessful = false;
-        switch(upgrade.currency) {
+        switch(upgradeState.data.currency) {
             case FloatingPopupManager.PopupType.Energy:
-                if(playerStats.energy >= upgrade.cost) {
-                    playerStats.ConsumeEnergy(upgrade.cost);
+                if(playerStats.energy >= upgradeState.CurrentCost) {
+                    playerStats.ConsumeEnergy(upgradeState.CurrentCost);
                     upgradeSuccessful = true;
                 }
                 break;
             case FloatingPopupManager.PopupType.Gold:
-                if(playerStats.gold >= upgrade.cost) {
-                    playerStats.ConsumeGold(upgrade.cost);
+                if(playerStats.gold >= upgradeState.CurrentCost) {
+                    playerStats.ConsumeGold(upgradeState.CurrentCost);
                     upgradeSuccessful = true;
                 }
                 break;
@@ -56,14 +63,13 @@ public class UpgradeManager : MonoBehaviour {
         }
 
         if(upgradeSuccessful) {
-            Debug.Log($"Purchased upgrade: {upgrade.upgradeName}");
-            upgrade.level++;
-            upgrade.cost *= 2;
+            Debug.Log($"Purchased upgrade: {upgradeState.data.upgradeName}");
+            upgradeState.level++;
             PopulateUpgrades();
 
             //TODO: check which upgrade it is, and affect the correct variable by the correct amount
         } else {
-            Debug.Log($"Not enough resources to afford {upgrade.upgradeName}");
+            Debug.Log($"Not enough resources to afford {upgradeState.data.upgradeName}");
         }
 
     }

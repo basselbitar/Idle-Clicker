@@ -1,7 +1,7 @@
 [System.Serializable]
 public class UpgradeState {
-    public Upgrade upgradeData;
-    public int level = 0;
+    public Upgrade data;
+    public int level = 1;
 
-    public int CurrentCost => upgradeData.GetCostForLevel(level);
+    public int CurrentCost => data.GetCostForLevel(level);
 }

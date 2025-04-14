@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: Maze Gen 4
   description: Placeholder description of a maze gen upgrade
-  cost: 40
+  icon: {fileID: 0}
+  baseCost: 40
   currency: 0
-  level: 1
-  reward: 0
+  baseLevel: 0
+  baseReward: 0
+  listOfRequirements: 0
+  category: 0
