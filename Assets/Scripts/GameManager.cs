@@ -8,14 +8,14 @@ public class GameManager : MonoBehaviour
 
 
     private void Awake() {
-        SaveManager.Load(playerStats);
-        ResourceUIManager.Instance.RefreshUI();
+       
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        SaveManager.Load(playerStats);
+        ResourceUIManager.Instance.RefreshUI();
     }
 
     // Update is called once per frame
