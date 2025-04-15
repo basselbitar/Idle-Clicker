@@ -4,4 +4,6 @@ public class UpgradeState {
     public int level = 1;
 
     public int CurrentCost => data.GetCostForLevel(level);
+
+    public string Description => data.GetDescriptionForLevel(level);
 }

@@ -16,6 +16,12 @@ public class UpgradeManager : MonoBehaviour {
         PopulateUpgrades();
     }
 
+    private void Update() {
+        if(Input.GetKeyUp(KeyCode.Comma)) {
+            playerStats.AddEnergy(1000);
+        }
+    }
+
     private void Initialize() {
         runtimeUpgrades = upgrades.Select(upgradeSO => new UpgradeState { data = upgradeSO }).ToList();
     }
@@ -27,7 +33,7 @@ public class UpgradeManager : MonoBehaviour {
             UpgradeUI ui = upgradeObject.GetComponent<UpgradeUI>();
             // Set the Text fields
             ui.nameText.text = upgradeState.data.upgradeName;
-            ui.descriptionText.text = upgradeState.data.description;
+            ui.descriptionText.text = upgradeState.Description; // gets the current description based on the level
             ui.costText.text = "Cost: " + upgradeState.CurrentCost;
             ui.levelText.text = "lv. " + upgradeState.level;
 
@@ -43,6 +49,10 @@ public class UpgradeManager : MonoBehaviour {
     }
 
     private void HandleUpgradePurchase(UpgradeState upgradeState) {
+        if(upgradeState.level >= upgradeState.data.maxLevel) {
+            return;
+        }
+
         bool upgradeSuccessful = false;
         switch(upgradeState.data.currency) {
             case FloatingPopupManager.PopupType.Energy:
@@ -64,7 +74,7 @@ public class UpgradeManager : MonoBehaviour {
 
         if(upgradeSuccessful) {
             Debug.Log($"Purchased upgrade: {upgradeState.data.upgradeName}");
-            upgradeState.level++;
+            PerformUpgrade(upgradeState);
             PopulateUpgrades();
 
             //TODO: check which upgrade it is, and affect the correct variable by the correct amount
@@ -72,5 +82,35 @@ public class UpgradeManager : MonoBehaviour {
             Debug.Log($"Not enough resources to afford {upgradeState.data.upgradeName}");
         }
 
+    }
+
+    private void PerformUpgrade(UpgradeState upgradeState) {
+        string upgradeName = upgradeState.data.upgradeName;
+        int level = upgradeState.level;
+        upgradeState.level++;
+
+
+        switch (upgradeName) {
+            case "Faster Generation":
+                if(level <= 3)
+                    UpgradeableVariables.GenerationTime--;
+                if (level > 3)
+                    UpgradeableVariables.GenerationTime -= 0.5f;
+                break;
+            case "Larger Maze Width":
+                break;
+            case "Larger Maze Height":
+                break;
+            case "Mouse Traps":
+                break;
+            case "Water Pits":
+                break;
+            default:
+                Debug.LogError($"Unknown upgrade: {upgradeName} is performing an Upgrade");
+                break;
+        }
+
+
+        //TODO: disable button if max level is reached
     }
 }

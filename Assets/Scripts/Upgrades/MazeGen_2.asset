@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4364575debdfdf943b65af6b57524425, type: 3}
   m_Name: MazeGen_2
   m_EditorClassIdentifier: 
-  upgradeName: Maze Gen 2
+  upgradeName: Larger Maze Width
   description: Placeholder description of a maze gen upgrade
   icon: {fileID: 0}
   baseCost: 20
   currency: 0
-  baseLevel: 0
+  baseLevel: 1
+  maxLevel: 15
   baseReward: 0
   listOfRequirements: 0
   category: 0
