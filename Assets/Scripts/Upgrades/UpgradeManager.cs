@@ -98,8 +98,10 @@ public class UpgradeManager : MonoBehaviour {
                     UpgradeableVariables.GenerationTime -= 0.5f;
                 break;
             case "Larger Maze Width":
+                UpgradeableVariables.MaxMapWidth++;
                 break;
             case "Larger Maze Height":
+                UpgradeableVariables.MaxMapHeight++;
                 break;
             case "Mouse Traps":
                 break;

@@ -28,8 +28,12 @@ public class MazeGenerator : MonoBehaviour {
     private float _visitedCounter;
 
     private void CreateAMaze() {
-        _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];
+        _timeToGenerate = UpgradeableVariables.GenerationTime;
+        //_mazeWidth = UpgradeableVariables.MaxMapWidth;
+        //_mazeHeight = UpgradeableVariables.MaxMapHeight;
 
+
+        _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];
         //try to find Maze GO, destroy it and instantiate a new one
         GameObject MazeGO = GameObject.Find("Maze");
         if (MazeGO != null) {
