@@ -18,7 +18,17 @@ MonoBehaviour:
   baseCost: 30
   currency: 0
   baseLevel: 1
-  maxLevel: 15
-  baseReward: 0
+  maxLevel: 10
+  rewards:
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 8
+  - 10
+  - 12
+  - 15
+  - 20
   listOfRequirements: 0
   category: 0

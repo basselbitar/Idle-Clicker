@@ -29,8 +29,8 @@ public class MazeGenerator : MonoBehaviour {
 
     private void CreateAMaze() {
         _timeToGenerate = UpgradeableVariables.GenerationTime;
-        //_mazeWidth = UpgradeableVariables.MaxMapWidth;
-        //_mazeHeight = UpgradeableVariables.MaxMapHeight;
+        _mazeWidth = UpgradeableVariables.MaxMapWidth;
+        _mazeHeight = UpgradeableVariables.MaxMapHeight;
 
 
         _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];

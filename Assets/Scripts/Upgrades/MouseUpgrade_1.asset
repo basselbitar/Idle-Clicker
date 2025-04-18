@@ -10,25 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4364575debdfdf943b65af6b57524425, type: 3}
-  m_Name: MazeGen_2
+  m_Name: MouseUpgrade_1
   m_EditorClassIdentifier: 
-  upgradeName: Larger Maze Width
-  description: Placeholder description of a maze gen upgrade
+  upgradeName: Speed
+  description: 
   icon: {fileID: 0}
-  baseCost: 20
-  currency: 0
+  baseCost: 2
+  currency: 1
   baseLevel: 1
-  maxLevel: 10
-  rewards:
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 8
-  - 10
-  - 12
-  - 15
-  - 20
+  maxLevel: 5
+  rewards: []
   listOfRequirements: 0
-  category: 0
+  category: 2

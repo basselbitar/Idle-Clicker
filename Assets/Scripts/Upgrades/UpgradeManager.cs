@@ -20,9 +20,16 @@ public class UpgradeManager : MonoBehaviour {
         if(Input.GetKeyUp(KeyCode.Comma)) {
             playerStats.AddEnergy(1000);
         }
+
+        if (Input.GetKeyUp(KeyCode.Period)) {
+            playerStats.AddGold(100);
+        }
     }
 
     private void Initialize() {
+        //Debug.Log(upgrades.Select(upgradeSO => new UpgradeState { data = upgradeSO }).ToList()[0].data.upgradeName);
+        //Debug.Log(upgrades.Select(upgradeSO => new UpgradeState { data = upgradeSO }).ToList()[1].data.upgradeName);
+        //Debug.Log(upgrades.Select(upgradeSO => new UpgradeState { data = upgradeSO }).ToList()[2].data.upgradeName);
         runtimeUpgrades = upgrades.Select(upgradeSO => new UpgradeState { data = upgradeSO }).ToList();
     }
 
@@ -92,17 +99,14 @@ public class UpgradeManager : MonoBehaviour {
 
         switch (upgradeName) {
             case "Faster Generation":
-                if(level <= 3)
-                    UpgradeableVariables.GenerationTime--;
-                if (level > 3)
-                    UpgradeableVariables.GenerationTime -= 0.5f;
+                UpgradeableVariables.GenerationTime = upgradeState.data.rewards[level];
                 break;
             case "Larger Maze Width":
-                UpgradeableVariables.MaxMapWidth++;
+                UpgradeableVariables.MaxMapWidth = (int) upgradeState.data.rewards[level];
                 break;
             case "Larger Maze Height":
-                UpgradeableVariables.MaxMapHeight++;
-                break;
+                UpgradeableVariables.MaxMapHeight = (int) upgradeState.data.rewards[level];
+                break;                                                                                                 break;
             case "Mouse Traps":
                 break;
             case "Water Pits":
