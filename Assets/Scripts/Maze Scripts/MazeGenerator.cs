@@ -20,6 +20,9 @@ public class MazeGenerator : MonoBehaviour {
     private float _timeToGenerate;
     private float _breakWaitTime;
 
+    [SerializeField]
+    private GameObject _mousePrefab;
+
     public bool IsGenerating { get; private set; }
 
     //debug only
@@ -54,6 +57,10 @@ public class MazeGenerator : MonoBehaviour {
         //Debug.Log("Break Wait Time = " + _breakWaitTime);
         _startTime = Time.time;
         IsGenerating = true;
+        GameObject MouseGO = GameObject.Find("Mouse(Clone)");
+        if (MouseGO != null) {
+            Destroy(MouseGO);
+        }
         StartCoroutine(GenerateMaze(null, _mazeGrid[0, 0]));
     }
 
@@ -129,6 +136,7 @@ public class MazeGenerator : MonoBehaviour {
             //Debug.Log("Taking " + (_endTime - _startTime));
             //Debug.Log("Generation Complete!");
             IsGenerating = false;
+            SpawnMouse();
         }
 
         if (previousCell.transform.position.x < currentCell.transform.position.x) {
@@ -156,7 +164,20 @@ public class MazeGenerator : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
+    private void SpawnMouse() {
+        GameObject MouseGO = Instantiate(_mousePrefab, new Vector3(0, 0.5f, 0f), new Quaternion(-90f,0,0,0));
+        MouseGO.transform.localScale = new Vector3(0.08f, 0.08f, 0.6f);
+
+        MazeSolver ms = MouseGO.GetComponent<MazeSolver>();
+        RobotMouse rm = MouseGO.GetComponent<RobotMouse>();
+        
+        ms.Init(_mazeGrid, _mazeWidth, _mazeHeight);
+        //placeholder target location is the last cell in the maze
+        List<Vector2Int> path = ms.FindPath(new Vector2Int(0,0), new Vector2Int(_mazeWidth - 1, _mazeHeight - 1));
+        rm.SetPath(path, _mazeGrid);
+        rm.SetSpeed(20);
+    }
+
     void Update() {
         if(Input.GetKeyDown(KeyCode.R)) {
             CreateAMaze();

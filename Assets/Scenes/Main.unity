@@ -414,7 +414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &159347494
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1883,6 +1883,7 @@ MonoBehaviour:
   _mazeWidth: 5
   _mazeHeight: 5
   _timeToGenerate: 1
+  _mousePrefab: {fileID: 6900506019360080482, guid: a395a19ad31aac8449d2a040ad522b37, type: 3}
 --- !u!4 &950726330
 Transform:
   m_ObjectHideFlags: 0

@@ -602,6 +602,10 @@ MonoBehaviour:
   _frontWall: {fileID: 333324846248789193}
   _backWall: {fileID: 7781653193691513462}
   _unvisitedBlock: {fileID: 1862774237246153496}
+  HasLeftWall: 1
+  HasRightWall: 1
+  HasFrontWall: 1
+  HasBackWall: 1
 --- !u!1 &7781653193691513462
 GameObject:
   m_ObjectHideFlags: 0
