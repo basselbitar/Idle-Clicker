@@ -169,13 +169,17 @@ public class MazeGenerator : MonoBehaviour {
         MouseGO.transform.localScale = new Vector3(0.08f, 0.08f, 0.6f);
 
         MazeSolver ms = MouseGO.GetComponent<MazeSolver>();
-        RobotMouse rm = MouseGO.GetComponent<RobotMouse>();
+        RobotMouse robotMouse = MouseGO.GetComponent<RobotMouse>();
         
         ms.Init(_mazeGrid, _mazeWidth, _mazeHeight);
+        Vector2Int start = new(0, 0);
+        Vector2Int goal = new(_mazeWidth - 1, _mazeHeight - 1);
+        robotMouse.Initialize(_mazeGrid, start, goal);
+        robotMouse.SetMovementStrategy(new RandomMovementStrategy(50));
         //placeholder target location is the last cell in the maze
-        List<Vector2Int> path = ms.FindPath(new Vector2Int(0,0), new Vector2Int(_mazeWidth - 1, _mazeHeight - 1));
-        rm.SetPath(path, _mazeGrid);
-        rm.SetSpeed(20);
+        //List<Vector2Int> path = ms.FindPath(, );
+        //robotMouse.SetPath(path, _mazeGrid);
+        robotMouse.SetSpeed(20);
     }
 
     void Update() {

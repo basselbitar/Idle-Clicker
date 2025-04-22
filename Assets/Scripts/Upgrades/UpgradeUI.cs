@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UpgradeUI : MonoBehaviour {
+    public Image icon;
     public TMP_Text nameText;
     public TMP_Text descriptionText;
     public TMP_Text costText;

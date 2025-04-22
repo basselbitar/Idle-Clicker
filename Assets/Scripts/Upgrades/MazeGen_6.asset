@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: Midas Touch
   description: Placeholder description of a midas touch
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 789ebb3a96650f54181c72e251462f7a, type: 3}
   baseCost: 60
   currency: 0
   baseLevel: 1

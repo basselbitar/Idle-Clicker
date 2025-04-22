@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: Speed
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 02ba70acc5d012e4f8e3114365ccdadb, type: 3}
   baseCost: 2
   currency: 1
   baseLevel: 1

@@ -32,7 +32,7 @@ public class PlayerStats : ScriptableObject {
     public void ConsumeEnergy(float amount) {
         if (energy >= amount) {
             energy -= amount;
-            Debug.Log($"Energy consumed: {amount}, Remaining Energy: {energy}");
+            //Debug.Log($"Energy consumed: {amount}, Remaining Energy: {energy}");
             ResourceUIManager.Instance.RefreshUI();
         }
         else {

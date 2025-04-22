@@ -5,8 +5,41 @@ using UnityEngine;
 public class RobotMouse : MonoBehaviour {
     [SerializeField] private float moveSpeed = 1f;
 
-    private Queue<Vector3> _waypoints = new Queue<Vector3>();
+    private Queue<Vector3> _waypoints = new();
     private bool _isMoving = false;
+
+    private MazeCell[,] _mazeGrid;
+    private Vector2Int _currentPosition;
+    private Vector2Int _goalPosition;
+
+    private IMouseMovementStrategy _movementStrategy;
+
+    public void Initialize(MazeCell[,] mazeGrid, Vector2Int start, Vector2Int goal) {
+        _mazeGrid = mazeGrid;
+        _currentPosition = start;
+        _goalPosition = goal;
+    }
+
+    public void SetMovementStrategy(IMouseMovementStrategy strategy) {
+        _movementStrategy = strategy;
+        GenerateAndFollowPath();
+    }
+
+    private void GenerateAndFollowPath() {
+        if (_movementStrategy == null || _mazeGrid == null) {
+            Debug.LogWarning("Strategy or Maze not set up properly.");
+            return;
+        }
+
+        List<Vector2Int> path = _movementStrategy.CalculatePath(_mazeGrid, _currentPosition, _goalPosition);
+        MazeUtils.PrintPath(path);
+        SetPath(path, _mazeGrid);
+
+        if (path.Count > 0) {
+            _currentPosition = path[path.Count - 1]; // update mouse's position
+        }
+    }
+
 
     public void SetPath(List<Vector2Int> path, MazeCell[,] mazeGrid) {
         _waypoints.Clear();
@@ -29,6 +62,7 @@ public class RobotMouse : MonoBehaviour {
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
                 moveSpeed = UpgradeableVariables.MouseSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+                transform.eulerAngles = new Vector3(90f, 180f, 0);
                 yield return null;
             }
         }

@@ -39,6 +39,7 @@ public class UpgradeManager : MonoBehaviour {
         foreach (UpgradeState upgradeState in runtimeUpgrades) {
             GameObject upgradeObject = Instantiate(upgradePrefab, upgradeParent);
             UpgradeUI ui = upgradeObject.GetComponent<UpgradeUI>();
+            ui.icon.sprite = upgradeState.data.icon;
             // Set the Text fields
             ui.nameText.text = upgradeState.data.upgradeName;
             ui.descriptionText.text = upgradeState.Description; // gets the current description based on the level
@@ -81,7 +82,7 @@ public class UpgradeManager : MonoBehaviour {
         }
 
         if(upgradeSuccessful) {
-            Debug.Log($"Purchased upgrade: {upgradeState.data.upgradeName}");
+            //Debug.Log($"Purchased upgrade: {upgradeState.data.upgradeName}");
             PerformUpgrade(upgradeState);
             PopulateUpgrades();
 
