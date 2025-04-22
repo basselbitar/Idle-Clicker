@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class UpgradeManager : MonoBehaviour {
     public UpgradeCategory category;
@@ -98,22 +99,39 @@ public class UpgradeManager : MonoBehaviour {
 
 
         switch (upgradeName) {
-            case "Faster Generation":
+            // Maze Upgrades
+            case UpgradeNames.MAZE_FASTER_GENERATION:
                 UpgradeableVariables.GenerationTime = upgradeState.data.rewards[level];
                 break;
-            case "Larger Maze Width":
+            case UpgradeNames.MAZE_WIDTH:
                 UpgradeableVariables.MaxMapWidth = (int) upgradeState.data.rewards[level];
                 break;
-            case "Larger Maze Height":
+            case UpgradeNames.MAZE_HEIGHT:
                 UpgradeableVariables.MaxMapHeight = (int) upgradeState.data.rewards[level];
-                break;                                                                                                 break;
-            case "Mouse Traps":
+                break;                                                                                                 
+            case UpgradeNames.MAZE_TRAPS:
                 break;
-            case "Water Pits":
+            case UpgradeNames.MAZE_WATER:
                 break;
+
+            //Mouse Upgrades
+            case UpgradeNames.MOUSE_SPEED:
+                UpgradeableVariables.MouseSpeed = upgradeState.data.rewards[level];
+                break;
+            case UpgradeNames.MOUSE_AGILITY:
+                break;
+            case UpgradeNames.MOUSE_STAMINA:
+                break;
+            case UpgradeNames.MOUSE_DOUBLE_RUN:
+                break;
+            case UpgradeNames.MOUSE_SNIFF_BOOST:
+                break;
+
+
             default:
                 Debug.LogError($"Unknown upgrade: {upgradeName} is performing an Upgrade");
                 break;
+
         }
 
 

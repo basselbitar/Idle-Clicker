@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RobotMouse : MonoBehaviour {
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 1f;
 
     private Queue<Vector3> _waypoints = new Queue<Vector3>();
     private bool _isMoving = false;
@@ -27,6 +27,7 @@ public class RobotMouse : MonoBehaviour {
         while (_waypoints.Count > 0) {
             Vector3 targetPos = _waypoints.Dequeue();
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
+                moveSpeed = UpgradeableVariables.MouseSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
                 yield return null;
             }

@@ -31,22 +31,38 @@ public class Upgrade : ScriptableObject {
         }
 
         switch (upgradeName) {
-            case "Faster Generation":
+            // ----------------- Map Generation Upgrades -----------------
+            case UpgradeNames.MAZE_FASTER_GENERATION:
                 return $"Reduces generation time from {rewards[level - 1]}s -> {rewards[level]}s";
-            case "Larger Maze Width":
+            case UpgradeNames.MAZE_WIDTH:
                 return $"Increases maze width from {(int) rewards[level - 1]} -> {(int)rewards[level]}";
-            case "Larger Maze Height":
+            case UpgradeNames.MAZE_HEIGHT:
                 return $"Increases maze height from {(int)rewards[level - 1]} -> {(int)rewards[level]}";
-            case "Mouse Traps":
+            case UpgradeNames.MAZE_TRAPS:
                 break;
-            case "Water Pits":
+            case UpgradeNames.MAZE_WATER:
                 break;
+
+
+            // ----------------- Idle Upgrades -----------------
+
+            // ----------------- Mouse Upgrades -----------------
+
+            case UpgradeNames.MOUSE_SPEED:
+                return $"Increases speed from {rewards[level-1]} -> {rewards[level]}";
+            case UpgradeNames.MOUSE_AGILITY:
+                return $"Increases agility of the mouse";
+            case UpgradeNames.MOUSE_STAMINA:
+                return $"Increases stamina so you can solve more puzzles";
+            case UpgradeNames.MOUSE_DOUBLE_RUN:
+                return $"Solve the puzzle twice at a 1% chance of proc.";
+            case UpgradeNames.MOUSE_SNIFF_BOOST:
+                return $"The mouse solves the maze with the shortest path immediately";
+
             default:
                 Debug.LogError($"Unknown upgrade: {upgradeName} is requiring a description");
                 return "Placeholder Description";
         }
-
-
 
         return $"Description of upgrade {upgradeName}";
     }
