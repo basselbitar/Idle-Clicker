@@ -8,6 +8,7 @@ public class RobotMouse : MonoBehaviour {
     private Queue<Vector3> _waypoints = new();
     private bool _isMoving = false;
 
+    private List<Vector2Int> _lastPath;
     private MazeCell[,] _mazeGrid;
     private Vector2Int _currentPosition;
     private Vector2Int _goalPosition;
@@ -43,6 +44,8 @@ public class RobotMouse : MonoBehaviour {
 
     public void SetPath(List<Vector2Int> path, MazeCell[,] mazeGrid) {
         _waypoints.Clear();
+        _lastPath = path;
+        _mazeGrid = mazeGrid;
 
         foreach (Vector2Int cellPos in path) {
             Vector3 worldPos = mazeGrid[cellPos.x, cellPos.y].transform.position;
@@ -72,5 +75,28 @@ public class RobotMouse : MonoBehaviour {
 
     public void SetSpeed(float speed) {
         moveSpeed = speed;
+    }
+
+    private void OnDrawGizmos() {
+        if (_lastPath == null || _mazeGrid == null || _lastPath.Count < 2)
+            return;
+
+        Gizmos.color = Color.cyan;
+
+        for (int i = 0; i < _lastPath.Count - 1; i++) {
+            Vector3 from = _mazeGrid[_lastPath[i].x, _lastPath[i].y].transform.position;
+            Vector3 to = _mazeGrid[_lastPath[i + 1].x, _lastPath[i + 1].y].transform.position;
+
+            from.y = transform.position.y + 0.1f; // raise a bit above ground
+            to.y = from.y;
+
+            Gizmos.DrawLine(from, to);
+            Gizmos.DrawSphere(from, 0.1f);
+        }
+
+        // Draw sphere at the last point too
+        Vector3 last = _mazeGrid[_lastPath[^1].x, _lastPath[^1].y].transform.position;
+        last.y = transform.position.y + 0.1f;
+        Gizmos.DrawSphere(last, 0.1f);
     }
 }

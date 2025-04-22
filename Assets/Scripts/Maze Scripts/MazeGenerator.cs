@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MazeGenerator : MonoBehaviour {
     [SerializeField]
@@ -165,13 +166,23 @@ public class MazeGenerator : MonoBehaviour {
     }
 
     private void SpawnMouse() {
-        GameObject MouseGO = Instantiate(_mousePrefab, new Vector3(0, 0.5f, 0f), new Quaternion(-90f,0,0,0));
+        GameObject MouseGO = GameObject.Find("Mouse(Clone)");
+        if (MouseGO != null) {
+            Destroy(MouseGO);
+        }
+        MouseGO = Instantiate(_mousePrefab, new Vector3(0, 0.5f, 0f), new Quaternion(-90f,0,0,0));
         MouseGO.transform.localScale = new Vector3(0.08f, 0.08f, 0.6f);
 
-        MazeSolver ms = MouseGO.GetComponent<MazeSolver>();
-        RobotMouse robotMouse = MouseGO.GetComponent<RobotMouse>();
+        SolveMaze(MouseGO);
+
         
-        ms.Init(_mazeGrid, _mazeWidth, _mazeHeight);
+    }
+
+    private void SolveMaze(GameObject mouse) {
+        MazeSolver mazeSolver = mouse.GetComponent<MazeSolver>();
+        RobotMouse robotMouse = mouse.GetComponent<RobotMouse>();
+
+        mazeSolver.Init(_mazeGrid, _mazeWidth, _mazeHeight);
         Vector2Int start = new(0, 0);
         Vector2Int goal = new(_mazeWidth - 1, _mazeHeight - 1);
         robotMouse.Initialize(_mazeGrid, start, goal);
@@ -179,12 +190,15 @@ public class MazeGenerator : MonoBehaviour {
         //placeholder target location is the last cell in the maze
         //List<Vector2Int> path = ms.FindPath(, );
         //robotMouse.SetPath(path, _mazeGrid);
-        robotMouse.SetSpeed(20);
     }
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.R)) {
             CreateAMaze();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T)) {
+            SpawnMouse();
         }
     }
 }
