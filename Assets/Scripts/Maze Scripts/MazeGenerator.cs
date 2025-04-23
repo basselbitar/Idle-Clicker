@@ -30,6 +30,7 @@ public class MazeGenerator : MonoBehaviour {
     private float _startTime;
     private float _endTime;
     private float _visitedCounter;
+    public bool ShowDebugText;
 
     private void CreateAMaze() {
         _timeToGenerate = UpgradeableVariables.GenerationTime;
@@ -48,7 +49,11 @@ public class MazeGenerator : MonoBehaviour {
         for (int x = 0; x < _mazeWidth; x++) {
             for (int z = 0; z < _mazeHeight; z++) {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                _mazeGrid[x, z].UpdateDebugText(new(x, z));
                 _mazeGrid[x, z].transform.SetParent(MazeGO.transform);
+                if(!ShowDebugText) {
+                    _mazeGrid[x, z].HideDebugText();
+                }
             }
         }
         CameraManager.Instance.SetCameraPos(_mazeWidth, _mazeHeight);
@@ -67,26 +72,35 @@ public class MazeGenerator : MonoBehaviour {
 
     private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell) {
         currentCell.Visit();
-
         ClearWalls(previousCell, currentCell);
 
         yield return new WaitForSeconds(_breakWaitTime);
 
         MazeCell nextCell;
+        bool foundNext = false;
 
         do {
             nextCell = GetNextUnvisitedCell(currentCell);
 
             if (nextCell != null) {
-                yield return GenerateMaze(currentCell, nextCell);
+                foundNext = true;
+                yield return StartCoroutine(GenerateMaze(currentCell, nextCell));
             }
         } while (nextCell != null);
+
+        //TODO: Investigate here
+        if (previousCell == null && !foundNext) {
+            IsGenerating = false;
+            //_endTime = Time.time;
+            //Debug.Log("Maze generation complete in " + (_endTime - _startTime) + " seconds");
+            SpawnMouse();
+        }
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell) {
         var unvisitedCells = GetUnvisitedCells(currentCell);
 
-        return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
+        return unvisitedCells.OrderBy(_ => Random.value).FirstOrDefault();
     }
 
     private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell) {
@@ -130,15 +144,6 @@ public class MazeGenerator : MonoBehaviour {
 
         //debug
         _visitedCounter--;
-        if (_visitedCounter == 1) {
-            _endTime = Time.time;
-            //Debug.Log("Started at: " + _startTime);
-            //Debug.Log("Ended at: " + _endTime);
-            //Debug.Log("Taking " + (_endTime - _startTime));
-            //Debug.Log("Generation Complete!");
-            IsGenerating = false;
-            SpawnMouse();
-        }
 
         if (previousCell.transform.position.x < currentCell.transform.position.x) {
             previousCell.ClearRightWall();
@@ -174,11 +179,12 @@ public class MazeGenerator : MonoBehaviour {
         MouseGO.transform.localScale = new Vector3(0.08f, 0.08f, 0.6f);
 
         SolveMaze(MouseGO);
-
-        
     }
 
     private void SolveMaze(GameObject mouse) {
+
+        //TODO: move all of these to a mouse manager that responds to a button being clicked before purchasing the Mouse Manager
+
         MazeSolver mazeSolver = mouse.GetComponent<MazeSolver>();
         RobotMouse robotMouse = mouse.GetComponent<RobotMouse>();
 
@@ -186,7 +192,11 @@ public class MazeGenerator : MonoBehaviour {
         Vector2Int start = new(0, 0);
         Vector2Int goal = new(_mazeWidth - 1, _mazeHeight - 1);
         robotMouse.Initialize(_mazeGrid, start, goal);
-        robotMouse.SetMovementStrategy(new RandomMovementStrategy(50));
+        //robotMouse.SetMovementStrategy(new RandomMovementStrategy(50));
+        robotMouse.SetMovementStrategy(new BFSMovementStrategy());
+
+
+
         //placeholder target location is the last cell in the maze
         //List<Vector2Int> path = ms.FindPath(, );
         //robotMouse.SetPath(path, _mazeGrid);

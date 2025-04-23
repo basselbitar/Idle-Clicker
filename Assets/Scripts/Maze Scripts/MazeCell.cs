@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MazeCell : MonoBehaviour
@@ -23,6 +24,8 @@ public class MazeCell : MonoBehaviour
     public bool HasRightWall;
     public bool HasFrontWall;
     public bool HasBackWall;
+
+    public TMP_Text DebugText;
 
     public bool IsVisited { get; private set; }
 
@@ -49,5 +52,13 @@ public class MazeCell : MonoBehaviour
     public void ClearBackWall() {
         _backWall.SetActive(false);
         HasBackWall = false;
+    }
+
+    public void UpdateDebugText(Vector2Int position) {
+        DebugText.text = position.ToString();
+    }
+
+    public void HideDebugText() {
+        DebugText.gameObject.SetActive(false);
     }
 }

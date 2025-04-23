@@ -32,6 +32,7 @@ public class RobotMouse : MonoBehaviour {
             return;
         }
 
+        // calculate the path based on the mouse movement strategy that has been set via SetMovementStrategy
         List<Vector2Int> path = _movementStrategy.CalculatePath(_mazeGrid, _currentPosition, _goalPosition);
         MazeUtils.PrintPath(path);
         SetPath(path, _mazeGrid);
@@ -65,7 +66,7 @@ public class RobotMouse : MonoBehaviour {
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
                 moveSpeed = UpgradeableVariables.MouseSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-                transform.eulerAngles = new Vector3(90f, 180f, 0);
+                transform.eulerAngles = new Vector3(90f, 0f, 0);
                 yield return null;
             }
         }
