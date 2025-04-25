@@ -17,7 +17,7 @@ public class EnergyManager : MonoBehaviour {
         else {
             // Set the singleton instance to this object
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // Keeps the EnergyManager between scene loads
+            //DontDestroyOnLoad(gameObject);  // Keeps the EnergyManager between scene loads
         }
     }
 

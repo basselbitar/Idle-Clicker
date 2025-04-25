@@ -12,15 +12,15 @@ public static class MazeUtils {
 
         MazeCell current = maze[x, y];
 
-        if (!current.HasRightWall && x + 1 < width)
-            neighbors.Add(new Vector2Int(x + 1, y));
         if (!current.HasLeftWall && x - 1 >= 0)
             neighbors.Add(new Vector2Int(x - 1, y));
-        if (!current.HasFrontWall && y + 1 < height)
-            neighbors.Add(new Vector2Int(x, y + 1));
+        if (!current.HasRightWall && x + 1 < width)
+            neighbors.Add(new Vector2Int(x + 1, y));
         if (!current.HasBackWall && y - 1 >= 0)
             neighbors.Add(new Vector2Int(x, y - 1));
-
+        if (!current.HasFrontWall && y + 1 < height)
+            neighbors.Add(new Vector2Int(x, y + 1));
+        
         return neighbors;
     }
 
@@ -31,5 +31,13 @@ public static class MazeUtils {
             sb.Append($" ({pos.x},{pos.y}),");
         }
         Debug.Log(sb.ToString());
+    }
+
+    public static void PrintPathLength(List<Vector2Int> path) {
+        Debug.Log("The Path length is: " + path.Count);
+    }
+
+    public static bool AreNeighbors(Vector2Int cell1, Vector2Int cell2, MazeCell[,] maze) {
+        return (GetNeighbors(cell1, maze).Contains(cell2));
     }
 }

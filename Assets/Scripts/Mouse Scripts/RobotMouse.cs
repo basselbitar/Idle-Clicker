@@ -33,8 +33,9 @@ public class RobotMouse : MonoBehaviour {
         }
 
         // calculate the path based on the mouse movement strategy that has been set via SetMovementStrategy
-        List<Vector2Int> path = _movementStrategy.CalculatePath(_mazeGrid, _currentPosition, _goalPosition);
+        List<Vector2Int> path = _movementStrategy.CalculatePath(_currentPosition, _goalPosition, _mazeGrid);
         MazeUtils.PrintPath(path);
+        MazeUtils.PrintPathLength(path);
         SetPath(path, _mazeGrid);
 
         if (path.Count > 0) {

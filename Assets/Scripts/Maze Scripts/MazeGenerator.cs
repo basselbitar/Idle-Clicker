@@ -77,19 +77,16 @@ public class MazeGenerator : MonoBehaviour {
         yield return new WaitForSeconds(_breakWaitTime);
 
         MazeCell nextCell;
-        bool foundNext = false;
 
         do {
             nextCell = GetNextUnvisitedCell(currentCell);
 
             if (nextCell != null) {
-                foundNext = true;
                 yield return StartCoroutine(GenerateMaze(currentCell, nextCell));
             }
         } while (nextCell != null);
 
-        //TODO: Investigate here
-        if (previousCell == null && !foundNext) {
+        if (previousCell == null) {
             IsGenerating = false;
             //_endTime = Time.time;
             //Debug.Log("Maze generation complete in " + (_endTime - _startTime) + " seconds");
@@ -185,15 +182,14 @@ public class MazeGenerator : MonoBehaviour {
 
         //TODO: move all of these to a mouse manager that responds to a button being clicked before purchasing the Mouse Manager
 
-        MazeSolver mazeSolver = mouse.GetComponent<MazeSolver>();
         RobotMouse robotMouse = mouse.GetComponent<RobotMouse>();
 
-        mazeSolver.Init(_mazeGrid, _mazeWidth, _mazeHeight);
         Vector2Int start = new(0, 0);
         Vector2Int goal = new(_mazeWidth - 1, _mazeHeight - 1);
         robotMouse.Initialize(_mazeGrid, start, goal);
         //robotMouse.SetMovementStrategy(new RandomMovementStrategy(50));
-        robotMouse.SetMovementStrategy(new BFSMovementStrategy());
+        //robotMouse.SetMovementStrategy(new BFSMovementStrategy());
+        robotMouse.SetMovementStrategy(new MazeSolver());
 
 
 

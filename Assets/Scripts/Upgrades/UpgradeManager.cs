@@ -25,6 +25,34 @@ public class UpgradeManager : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Period)) {
             playerStats.AddGold(100);
         }
+
+        if (Input.GetKeyUp(KeyCode.Z)) {
+            if (runtimeUpgrades[0].data.category == UpgradeCategory.Maze) {
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PopulateUpgrades();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.X)) {
+            if (runtimeUpgrades[0].data.category == UpgradeCategory.Mouse) {
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PerformUpgrade(runtimeUpgrades[0]);
+                PopulateUpgrades();
+            }
+        }
     }
 
     private void Initialize() {

@@ -8,7 +8,7 @@ public class RandomMovementStrategy : IMouseMovementStrategy {
         _maxMoves = maxMoves;
     }
 
-    public List<Vector2Int> CalculatePath(MazeCell[,] maze, Vector2Int start, Vector2Int goal) {
+    public List<Vector2Int> CalculatePath(Vector2Int start, Vector2Int goal, MazeCell[,] maze) {
         List<Vector2Int> path = new List<Vector2Int> { start };
         Vector2Int current = start;
         int moveCount = 0;

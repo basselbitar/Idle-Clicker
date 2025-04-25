@@ -9,5 +9,5 @@ public interface IMouseMovementStrategy {
     /// <param name="start">Starting grid position of the mouse.</param>
     /// <param name="goal">Target grid position to reach.</param>
     /// <returns>A list of grid positions representing the path from start to goal.</returns>
-    List<Vector2Int> CalculatePath(MazeCell[,] maze, Vector2Int start, Vector2Int goal);
+    List<Vector2Int> CalculatePath(Vector2Int start, Vector2Int goal, MazeCell[,] maze);
 }
