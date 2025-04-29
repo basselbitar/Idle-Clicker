@@ -136,9 +136,11 @@ public class UpgradeManager : MonoBehaviour {
                 break;
             case UpgradeNames.MAZE_WIDTH:
                 UpgradeableVariables.MaxMapWidth = (int) upgradeState.data.rewards[level];
+                CreateAndSolveUIManager.Instance.UpdateMazePrice();
                 break;
             case UpgradeNames.MAZE_HEIGHT:
                 UpgradeableVariables.MaxMapHeight = (int) upgradeState.data.rewards[level];
+                CreateAndSolveUIManager.Instance.UpdateMazePrice();
                 break;                                                                                                 
             case UpgradeNames.MAZE_TRAPS:
                 break;

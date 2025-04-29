@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour {
@@ -31,6 +32,11 @@ public class InputManager : MonoBehaviour {
 
     // Method called when the mouse click is performed
     private void OnClickPerformed(InputAction.CallbackContext context) {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            // UI element was clicked — ignore game click effects
+            return;
+        }
+
         Vector2 mousePos = Mouse.current.position.ReadValue();
 
         // Check if the click is in the defined target area (e.g., right half of the screen)

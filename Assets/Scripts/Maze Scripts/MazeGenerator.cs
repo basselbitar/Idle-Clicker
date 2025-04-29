@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MazeGenerator : MonoBehaviour {
+
+    public static MazeGenerator Instance { get; private set; }
+
     [SerializeField]
     private MazeCell _mazeCellPrefab;
 
@@ -26,13 +29,29 @@ public class MazeGenerator : MonoBehaviour {
 
     public bool IsGenerating { get; private set; }
 
+    [SerializeField]
+    private List<Color> _wallColours;
+    [SerializeField]
+    private Material _mazeMaterial;
+
+    private int _colorIndex;
+
     //debug only
     private float _startTime;
     private float _endTime;
     private float _visitedCounter;
     public bool ShowDebugText;
 
-    private void CreateAMaze() {
+    private void Awake() {
+        // Enforce singleton instance
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject); // Prevent duplicates
+            return;
+        }
+        Instance = this;
+    }
+
+    public void GenerateAMaze() {
         _timeToGenerate = UpgradeableVariables.GenerationTime;
         _mazeWidth = UpgradeableVariables.MaxMapWidth;
         _mazeHeight = UpgradeableVariables.MaxMapHeight;
@@ -63,6 +82,7 @@ public class MazeGenerator : MonoBehaviour {
         //Debug.Log("Break Wait Time = " + _breakWaitTime);
         _startTime = Time.time;
         IsGenerating = true;
+        CreateAndSolveUIManager.Instance.DisableButton();
         GameObject MouseGO = GameObject.Find("Mouse(Clone)");
         if (MouseGO != null) {
             Destroy(MouseGO);
@@ -88,8 +108,7 @@ public class MazeGenerator : MonoBehaviour {
 
         if (previousCell == null) {
             IsGenerating = false;
-            //_endTime = Time.time;
-            //Debug.Log("Maze generation complete in " + (_endTime - _startTime) + " seconds");
+            CreateAndSolveUIManager.Instance.EnableButton();
             SpawnMouse();
         }
     }
@@ -188,8 +207,8 @@ public class MazeGenerator : MonoBehaviour {
         Vector2Int start = new(0, 0);
         Vector2Int goal = new(_mazeWidth - 1, _mazeHeight - 1);
         robotMouse.Initialize(_mazeGrid, start, goal);
+        robotMouse._isMoving = CreateAndSolveUIManager.Instance.autoSolvePuzzles;
         robotMouse.DetermineAndSetMovementStrategy();
-
         //placeholder target location is the last cell in the maze
         //List<Vector2Int> path = ms.FindPath(, );
         //robotMouse.SetPath(path, _mazeGrid);
@@ -199,11 +218,15 @@ public class MazeGenerator : MonoBehaviour {
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.R)) {
-            CreateAMaze();
+            GenerateAMaze();
         }
 
         if (Input.GetKeyDown(KeyCode.T)) {
             SpawnMouse();
+        }
+
+        if(Input.GetKeyDown(KeyCode.C)) {
+            _mazeMaterial.color = _wallColours[_colorIndex++ % _wallColours.Count];
         }
     }
 }

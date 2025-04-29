@@ -6,7 +6,7 @@ public class RobotMouse : MonoBehaviour {
     [SerializeField] private float moveSpeed = 1f;
 
     private Queue<Vector3> _waypoints = new();
-    private bool _isMoving = false;
+    public bool _isMoving;
 
     private List<Vector2Int> _lastPath;
     private MazeCell[,] _mazeGrid;
@@ -41,10 +41,10 @@ public class RobotMouse : MonoBehaviour {
 
     public void SetMovementStrategy(IMouseMovementStrategy strategy) {
         _movementStrategy = strategy;
-        GenerateAndFollowPath();
+        GenerateAndSetPath();
     }
 
-    private void GenerateAndFollowPath() {
+    private void GenerateAndSetPath() {
         if (_movementStrategy == null || _mazeGrid == null) {
             Debug.LogWarning("Strategy or Maze not set up properly.");
             return;
@@ -52,8 +52,6 @@ public class RobotMouse : MonoBehaviour {
 
         // calculate the path based on the mouse movement strategy that has been set via SetMovementStrategy
         List<Vector2Int> path = _movementStrategy.CalculatePath(_currentPosition, _goalPosition, _mazeGrid);
-        MazeUtils.PrintPath(path);
-        MazeUtils.PrintPathLength(path);
         SetPath(path, _mazeGrid);
     }
 
@@ -64,6 +62,8 @@ public class RobotMouse : MonoBehaviour {
         _mazeGrid = mazeGrid;
 
         path.RemoveAt(0); // Delete the (0,0) to not cost the player energy for nothing
+        MazeUtils.PrintPath(path);
+        MazeUtils.PrintPathLength(path);
 
         foreach (Vector2Int cellPos in path) {
             Vector3 worldPos = mazeGrid[cellPos.x, cellPos.y].transform.position;
@@ -71,20 +71,27 @@ public class RobotMouse : MonoBehaviour {
             _waypoints.Enqueue(worldPos);
         }
 
-        if (_waypoints.Count > 0) {
-            _isMoving = true;
-            StartCoroutine(FollowPath());
-        }
+        StartCoroutine(FollowPath());
     }
 
-    private IEnumerator FollowPath() {
+    public IEnumerator FollowPath() {
+        Debug.Log("Following Path");
         while (_waypoints.Count > 0) {
+            Debug.Log("Is moving: " + _isMoving);
+            if (!_isMoving) {
+                yield break;
+            }
             Vector3 targetPos = _waypoints.Dequeue();
             while(!EnergyManager.Instance.HasEnergy(UpgradeableVariables.MouseStepCost)) {
                 yield return null;
                 //TODO: visually tell the user that the mouse is out of energy
+                //maybe send mouse to sleep so it can recharge energy faster
+                if (!_isMoving) {
+                    yield break;
+                }
             }
 
+            
             // spend the energy needed to move and move the mouse
             EnergyManager.Instance.ConsumeEnergy(UpgradeableVariables.MouseStepCost);
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
@@ -94,8 +101,6 @@ public class RobotMouse : MonoBehaviour {
                 yield return null;
             }
         }
-
-        _isMoving = false;
     }
 
     public void SetSpeed(float speed) {
