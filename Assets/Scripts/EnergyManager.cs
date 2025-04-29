@@ -57,4 +57,8 @@ public class EnergyManager : MonoBehaviour {
         playerStats.ConsumeEnergy(amount);
         SaveManager.Save(playerStats);
     }
+
+    public bool HasEnergy(float amount) {
+        return playerStats.energy >= amount;
+    }
 }

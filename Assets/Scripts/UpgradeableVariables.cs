@@ -14,4 +14,5 @@ public static class UpgradeableVariables
     // Mouse variables
     public static float MouseSpeed = 1f;
     public static int MouseIntelligence = 1;
+    public static float MouseStepCost = 5f;
 }

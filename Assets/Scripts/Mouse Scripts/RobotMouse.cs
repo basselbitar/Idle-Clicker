@@ -55,10 +55,6 @@ public class RobotMouse : MonoBehaviour {
         MazeUtils.PrintPath(path);
         MazeUtils.PrintPathLength(path);
         SetPath(path, _mazeGrid);
-        Debug.Log("Calculating path based on " + _movementStrategy.GetType().Name);
-        if (path.Count > 0) {
-            _currentPosition = path[path.Count - 1]; // update mouse's position
-        }
     }
 
 
@@ -66,6 +62,8 @@ public class RobotMouse : MonoBehaviour {
         _waypoints.Clear();
         _lastPath = path;
         _mazeGrid = mazeGrid;
+
+        path.RemoveAt(0); // Delete the (0,0) to not cost the player energy for nothing
 
         foreach (Vector2Int cellPos in path) {
             Vector3 worldPos = mazeGrid[cellPos.x, cellPos.y].transform.position;
@@ -82,6 +80,13 @@ public class RobotMouse : MonoBehaviour {
     private IEnumerator FollowPath() {
         while (_waypoints.Count > 0) {
             Vector3 targetPos = _waypoints.Dequeue();
+            while(!EnergyManager.Instance.HasEnergy(UpgradeableVariables.MouseStepCost)) {
+                yield return null;
+                //TODO: visually tell the user that the mouse is out of energy
+            }
+
+            // spend the energy needed to move and move the mouse
+            EnergyManager.Instance.ConsumeEnergy(UpgradeableVariables.MouseStepCost);
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
                 moveSpeed = UpgradeableVariables.MouseSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);

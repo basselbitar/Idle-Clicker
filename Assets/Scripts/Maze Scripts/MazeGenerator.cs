@@ -172,7 +172,8 @@ public class MazeGenerator : MonoBehaviour {
         if (MouseGO != null) {
             Destroy(MouseGO);
         }
-        MouseGO = Instantiate(_mousePrefab, new Vector3(0, 0.5f, 0f), new Quaternion(-90f,0,0,0));
+        MouseGO = Instantiate(_mousePrefab, new Vector3(0, 0.5f, 0f), new Quaternion(-90f, 0, 0, 0));
+        MouseGO.transform.eulerAngles = new Vector3(90f, 0f, 0);
         MouseGO.transform.localScale = new Vector3(0.08f, 0.08f, 0.6f);
 
         SolveMaze(MouseGO);
@@ -187,8 +188,6 @@ public class MazeGenerator : MonoBehaviour {
         Vector2Int start = new(0, 0);
         Vector2Int goal = new(_mazeWidth - 1, _mazeHeight - 1);
         robotMouse.Initialize(_mazeGrid, start, goal);
-        //robotMouse.SetMovementStrategy(new RandomMovementStrategy(50));
-        //robotMouse.SetMovementStrategy(new BFSMovementStrategy());
         robotMouse.DetermineAndSetMovementStrategy();
 
         //placeholder target location is the last cell in the maze

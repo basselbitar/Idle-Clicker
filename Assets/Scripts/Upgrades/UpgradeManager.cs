@@ -21,7 +21,9 @@ public class UpgradeManager : MonoBehaviour {
         if(Input.GetKeyUp(KeyCode.Comma)) {
             playerStats.AddEnergy(1000);
         }
-
+        if (Input.GetKeyUp(KeyCode.M)) {
+            playerStats.ConsumeEnergy(1000);
+        }
         if (Input.GetKeyUp(KeyCode.Period)) {
             playerStats.AddGold(100);
         }
