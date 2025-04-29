@@ -189,14 +189,14 @@ public class MazeGenerator : MonoBehaviour {
         robotMouse.Initialize(_mazeGrid, start, goal);
         //robotMouse.SetMovementStrategy(new RandomMovementStrategy(50));
         //robotMouse.SetMovementStrategy(new BFSMovementStrategy());
-        robotMouse.SetMovementStrategy(new MazeSolver());
-
-
+        robotMouse.DetermineAndSetMovementStrategy();
 
         //placeholder target location is the last cell in the maze
         //List<Vector2Int> path = ms.FindPath(, );
         //robotMouse.SetPath(path, _mazeGrid);
     }
+
+    
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.R)) {

@@ -16,7 +16,7 @@ public static class UpgradeNames
 
     // Mouse Upgrades
     public const string MOUSE_SPEED = "Speed";
-    public const string MOUSE_AGILITY = "Agility";
+    public const string MOUSE_INTELLIGENCE = "Intelligence";
     public const string MOUSE_STAMINA = "Stamina";
     public const string MOUSE_DOUBLE_RUN = "Double Run";
     public const string MOUSE_SNIFF_BOOST = "Sniff Boost";

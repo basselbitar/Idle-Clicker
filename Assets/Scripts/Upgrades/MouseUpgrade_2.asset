@@ -12,13 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4364575debdfdf943b65af6b57524425, type: 3}
   m_Name: MouseUpgrade_2
   m_EditorClassIdentifier: 
-  upgradeName: Agility
+  upgradeName: Intelligence
   description: 
   icon: {fileID: 21300000, guid: 02ba70acc5d012e4f8e3114365ccdadb, type: 3}
   baseCost: 3
   currency: 1
   baseLevel: 1
-  maxLevel: 5
-  rewards: []
+  maxLevel: 20
+  rewards:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
   listOfRequirements: 0
   category: 2

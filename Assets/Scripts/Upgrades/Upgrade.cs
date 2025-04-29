@@ -50,8 +50,8 @@ public class Upgrade : ScriptableObject {
 
             case UpgradeNames.MOUSE_SPEED:
                 return $"Increases speed from {rewards[level-1]} -> {rewards[level]}";
-            case UpgradeNames.MOUSE_AGILITY:
-                return $"Increases agility of the mouse";
+            case UpgradeNames.MOUSE_INTELLIGENCE:
+                return $"Increases intelligence from {rewards[level-1]} -> {rewards[level]}";
             case UpgradeNames.MOUSE_STAMINA:
                 return $"Increases stamina so you can solve more puzzles";
             case UpgradeNames.MOUSE_DOUBLE_RUN:

@@ -18,10 +18,12 @@ public class RandomMovementStrategy : IMouseMovementStrategy {
 
             // TODO: skip these 3 lines at first and only implement them if mouse_IQ  > threshold
             // Avoid going backwards only if other options exist
-            if (path.Count > 1 && validMoves.Count > 1) {
-                Vector2Int previous = path[path.Count - 2];
-                validMoves.Remove(previous);
-            } //avoiding this will cause the mouse to frantically choose random next Cell at each cell it is on!
+            if (UpgradeableVariables.MouseIntelligence >= 6) {
+                if (path.Count > 1 && validMoves.Count > 1) {
+                    Vector2Int previous = path[^2]; // count - 2
+                    validMoves.Remove(previous);
+                } //avoiding this will cause the mouse to frantically choose random next Cell at each cell it is on!
+            }
 
             if (validMoves.Count == 0)
                 break;

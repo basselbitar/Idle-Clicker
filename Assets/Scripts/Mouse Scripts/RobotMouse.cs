@@ -21,6 +21,24 @@ public class RobotMouse : MonoBehaviour {
         _goalPosition = goal;
     }
 
+    public void DetermineAndSetMovementStrategy() {
+        int intel = UpgradeableVariables.MouseIntelligence;
+        IMouseMovementStrategy moveStrategy= new RandomMovementStrategy(); //TODO: set the limit on the max number of moves
+        if (intel >= 1 && intel <= 10) {
+            moveStrategy = new RandomMovementStrategy(); //TODO: set the limit on the max number of moves as an Upgradeable Variable
+        }
+        else if (intel >= 11 && intel <= 19) {
+            moveStrategy = new BFSMovementStrategy();
+        }
+        else if (intel == 20) {
+            moveStrategy = new MazeSolver();
+        }
+        else {
+            Debug.LogError("UNKNOWN INTELLIGENCE LEVEL");
+        }
+        SetMovementStrategy(moveStrategy);
+    }
+
     public void SetMovementStrategy(IMouseMovementStrategy strategy) {
         _movementStrategy = strategy;
         GenerateAndFollowPath();
@@ -37,7 +55,7 @@ public class RobotMouse : MonoBehaviour {
         MazeUtils.PrintPath(path);
         MazeUtils.PrintPathLength(path);
         SetPath(path, _mazeGrid);
-
+        Debug.Log("Calculating path based on " + _movementStrategy.GetType().Name);
         if (path.Count > 0) {
             _currentPosition = path[path.Count - 1]; // update mouse's position
         }

@@ -147,7 +147,8 @@ public class UpgradeManager : MonoBehaviour {
             case UpgradeNames.MOUSE_SPEED:
                 UpgradeableVariables.MouseSpeed = upgradeState.data.rewards[level];
                 break;
-            case UpgradeNames.MOUSE_AGILITY:
+            case UpgradeNames.MOUSE_INTELLIGENCE:
+                UpgradeableVariables.MouseIntelligence = (int)upgradeState.data.rewards[level];
                 break;
             case UpgradeNames.MOUSE_STAMINA:
                 break;
