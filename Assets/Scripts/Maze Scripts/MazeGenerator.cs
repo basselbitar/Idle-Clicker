@@ -87,6 +87,7 @@ public class MazeGenerator : MonoBehaviour {
         if (MouseGO != null) {
             Destroy(MouseGO);
         }
+        RandomizeColour();
         StartCoroutine(GenerateMaze(null, _mazeGrid[0, 0]));
     }
 
@@ -214,7 +215,9 @@ public class MazeGenerator : MonoBehaviour {
         //robotMouse.SetPath(path, _mazeGrid);
     }
 
-    
+    private void RandomizeColour() {
+        _mazeMaterial.color = _wallColours[_colorIndex++ % _wallColours.Count];
+    }
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.R)) {
@@ -226,7 +229,7 @@ public class MazeGenerator : MonoBehaviour {
         }
 
         if(Input.GetKeyDown(KeyCode.C)) {
-            _mazeMaterial.color = _wallColours[_colorIndex++ % _wallColours.Count];
+            RandomizeColour();
         }
     }
 }

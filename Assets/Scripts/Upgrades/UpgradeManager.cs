@@ -28,6 +28,11 @@ public class UpgradeManager : MonoBehaviour {
             playerStats.AddGold(100);
         }
 
+        if (Input.GetKey(KeyCode.T)) {
+            playerStats.ConsumeEnergy(10);
+            playerStats.ConsumeGold(10);
+        }
+
         if (Input.GetKeyUp(KeyCode.Z)) {
             if (runtimeUpgrades[0].data.category == UpgradeCategory.Maze) {
                 PerformUpgrade(runtimeUpgrades[0]);
