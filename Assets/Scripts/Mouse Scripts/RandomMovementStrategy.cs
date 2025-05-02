@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UV = Utilities.UpgradeableVariables;
 
 public class RandomMovementStrategy : IMouseMovementStrategy {
     private readonly int _maxMoves;
@@ -18,7 +19,7 @@ public class RandomMovementStrategy : IMouseMovementStrategy {
 
             // TODO: skip these 3 lines at first and only implement them if mouse_IQ  > threshold
             // Avoid going backwards only if other options exist
-            if (UpgradeableVariables.MouseIntelligence >= 6) {
+            if (UV.MouseIntelligence >= 6) {
                 if (path.Count > 1 && validMoves.Count > 1) {
                     Vector2Int previous = path[^2]; // count - 2
                     validMoves.Remove(previous);

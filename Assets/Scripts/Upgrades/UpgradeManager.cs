@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UV = Utilities.UpgradeableVariables;
 
 public class UpgradeManager : MonoBehaviour {
     public UpgradeCategory category;
@@ -144,14 +145,14 @@ public class UpgradeManager : MonoBehaviour {
         switch (upgradeName) {
             // Maze Upgrades
             case UpgradeNames.MAZE_FASTER_GENERATION:
-                UpgradeableVariables.GenerationTime = upgradeState.data.rewards[level];
+                UV.GenerationTime = upgradeState.data.rewards[level];
                 break;
             case UpgradeNames.MAZE_WIDTH:
-                UpgradeableVariables.MaxMapWidth = (int) upgradeState.data.rewards[level];
+                UV.MaxMapWidth = (int) upgradeState.data.rewards[level];
                 CreateAndSolveUIManager.Instance.UpdateMazePrice();
                 break;
             case UpgradeNames.MAZE_HEIGHT:
-                UpgradeableVariables.MaxMapHeight = (int) upgradeState.data.rewards[level];
+                UV.MaxMapHeight = (int) upgradeState.data.rewards[level];
                 CreateAndSolveUIManager.Instance.UpdateMazePrice();
                 break;                                                                                                 
             case UpgradeNames.MAZE_TRAPS:
@@ -161,10 +162,11 @@ public class UpgradeManager : MonoBehaviour {
 
             //Mouse Upgrades
             case UpgradeNames.MOUSE_SPEED:
-                UpgradeableVariables.MouseSpeed = upgradeState.data.rewards[level];
+                UV.MouseSpeed = upgradeState.data.rewards[level];
                 break;
             case UpgradeNames.MOUSE_INTELLIGENCE:
-                UpgradeableVariables.MouseIntelligence = (int)upgradeState.data.rewards[level];
+                UV.MouseIntelligence = (int)upgradeState.data.rewards[level];
+                UV.MouseMaxNumberOfMoves = 50 + (10 * level);
                 break;
             case UpgradeNames.MOUSE_STAMINA:
                 break;

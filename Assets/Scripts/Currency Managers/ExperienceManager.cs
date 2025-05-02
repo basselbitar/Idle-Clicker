@@ -40,7 +40,6 @@ public class ExperienceManager : MonoBehaviour {
             FloatingPopupManager.Instance.ShowPopup($"+{experiencePerTile}", worldPos, FloatingPopupManager.PopupType.XP);
             yield return new WaitForSeconds(waitTime);
         }
-
     }
 
     public void AddExperience(float amount) {

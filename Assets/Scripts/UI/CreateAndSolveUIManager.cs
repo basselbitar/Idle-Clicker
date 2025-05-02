@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UV = Utilities.UpgradeableVariables;
 
 public class CreateAndSolveUIManager : MonoBehaviour {
     public static CreateAndSolveUIManager Instance { get; private set; }
@@ -37,7 +38,7 @@ public class CreateAndSolveUIManager : MonoBehaviour {
     }
 
     public void UpdateMazePrice() {
-        _mazePrice = UpgradeableVariables.MaxMapWidth * UpgradeableVariables.MaxMapHeight;
+        _mazePrice = UV.MaxMapWidth * UV.MaxMapHeight;
         _createButtonText.text = $"Build Maze ({_mazePrice})";
     }
 
@@ -72,7 +73,7 @@ public class CreateAndSolveUIManager : MonoBehaviour {
         }
         else {
             FindObjectOfType<RobotMouse>()._isMoving = false;
-            _solveButtonText.text = $"Solve ({UpgradeableVariables.MouseStepCost})";
+            _solveButtonText.text = $"Solve ({UV.MouseStepCost})";
         }
     }
 

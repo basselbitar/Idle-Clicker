@@ -25,6 +25,7 @@ public class ResourceUIManager : MonoBehaviour {
     // Refresh the UI when stats change
     public void RefreshUI() {
         energyText.text = playerStats.energy.ToString("0");
+        experienceText.text = playerStats.experience.ToString("0");
         goldText.text = " " + playerStats.gold.ToString("0");
     }
 }

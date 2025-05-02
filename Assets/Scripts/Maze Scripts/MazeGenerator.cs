@@ -4,6 +4,8 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UV = Utilities.UpgradeableVariables;
+
 
 public class MazeGenerator : MonoBehaviour {
 
@@ -52,9 +54,9 @@ public class MazeGenerator : MonoBehaviour {
     }
 
     public void GenerateAMaze() {
-        _timeToGenerate = UpgradeableVariables.GenerationTime;
-        _mazeWidth = UpgradeableVariables.MaxMapWidth;
-        _mazeHeight = UpgradeableVariables.MaxMapHeight;
+        _timeToGenerate = UV.GenerationTime;
+        _mazeWidth = UV.MaxMapWidth;
+        _mazeHeight = UV.MaxMapHeight;
 
 
         _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UV = Utilities.UpgradeableVariables;
 
 public class RobotMouse : MonoBehaviour {
     [SerializeField] private float moveSpeed = 1f;
@@ -23,12 +24,11 @@ public class RobotMouse : MonoBehaviour {
         _currentPosition = start;
         _goalPosition = goal;
     }
-
     public void DetermineAndSetMovementStrategy() {
-        int intel = UpgradeableVariables.MouseIntelligence;
-        IMouseMovementStrategy moveStrategy= new RandomMovementStrategy(); //TODO: set the limit on the max number of moves
+        int intel = UV.MouseIntelligence;
+        IMouseMovementStrategy moveStrategy= new RandomMovementStrategy(UV.MouseMaxNumberOfMoves); //TODO: set the limit on the max number of moves
         if (intel >= 1 && intel <= 10) {
-            moveStrategy = new RandomMovementStrategy(); //TODO: set the limit on the max number of moves as an Upgradeable Variable
+            moveStrategy = new RandomMovementStrategy(UV.MouseMaxNumberOfMoves); //TODO: set the limit on the max number of moves as an Upgradeable Variable
         }
         else if (intel >= 11 && intel <= 19) {
             moveStrategy = new BFSMovementStrategy();
@@ -67,7 +67,7 @@ public class RobotMouse : MonoBehaviour {
         _mazeGrid = mazeGrid;
 
         path.RemoveAt(0); // Delete the (0,0) to not cost the player energy for nothing
-        MazeUtils.PrintPath(path);
+        //MazeUtils.PrintPath(path);
         MazeUtils.PrintPathLength(path);
 
         foreach (Vector2Int cellPos in path) {
@@ -87,7 +87,7 @@ public class RobotMouse : MonoBehaviour {
                 yield break;
             }
             Vector3 targetPos = _waypoints.Dequeue();
-            while(!EnergyManager.Instance.HasEnergy(UpgradeableVariables.MouseStepCost)) {
+            while(!EnergyManager.Instance.HasEnergy(UV.MouseStepCost)) {
                 yield return null;
                 //TODO: visually tell the user that the mouse is out of energy
                 //maybe send mouse to sleep so it can recharge energy faster
@@ -98,17 +98,15 @@ public class RobotMouse : MonoBehaviour {
 
             
             // spend the energy needed to move and move the mouse
-            EnergyManager.Instance.ConsumeEnergy(UpgradeableVariables.MouseStepCost);
+            EnergyManager.Instance.ConsumeEnergy(UV.MouseStepCost);
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
-                moveSpeed = UpgradeableVariables.MouseSpeed;
+                moveSpeed = UV.MouseSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
                 transform.eulerAngles = new Vector3(90f, 0f, 0);
                 yield return null;
             }
         }
-        if(_goalReached) {
-            StartCoroutine(ExperienceManager.Instance.GiveEndOfRoundReward(_startPosition, _goalPosition, _mazeGrid));
-        }
+        GameManager.Instance.OnRoundEnd(_goalReached, _startPosition, _goalPosition, _mazeGrid);
     }
 
     public void SetSpeed(float speed) {
