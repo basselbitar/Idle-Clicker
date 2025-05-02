@@ -28,9 +28,13 @@ public class UpgradeManager : MonoBehaviour {
             playerStats.AddGold(100);
         }
 
-        if (Input.GetKey(KeyCode.T)) {
+        if (Input.GetKey(KeyCode.V)) {
             playerStats.ConsumeEnergy(10);
             playerStats.ConsumeGold(10);
+        }
+
+        if (Input.GetKeyUp(KeyCode.B)) {
+            playerStats.AddEnergy(10);
         }
 
         if (Input.GetKeyUp(KeyCode.Z)) {
@@ -131,8 +135,11 @@ public class UpgradeManager : MonoBehaviour {
     private void PerformUpgrade(UpgradeState upgradeState) {
         string upgradeName = upgradeState.data.upgradeName;
         int level = upgradeState.level;
-        upgradeState.level++;
+        if (level == upgradeState.data.maxLevel) {
+            return;
+        }
 
+        upgradeState.level++;
 
         switch (upgradeName) {
             // Maze Upgrades

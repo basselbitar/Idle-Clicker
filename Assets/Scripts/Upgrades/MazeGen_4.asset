@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Placeholder description of a maze gen upgrade
   icon: {fileID: 21300000, guid: 789ebb3a96650f54181c72e251462f7a, type: 3}
   baseCost: 40
+  growthRate: 1.15
   currency: 0
   baseLevel: 1
   maxLevel: 15

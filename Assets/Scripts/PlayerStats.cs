@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject {
     public float gold;
     public float energy;
+    public float experience;
 
     public void AddGold(float amount) {
         gold += amount;
@@ -14,6 +15,11 @@ public class PlayerStats : ScriptableObject {
     public void AddEnergy(float amount) {
         energy += amount;
         //Debug.Log($"Energy added: {amount}, Total Energy: {energy}");
+        ResourceUIManager.Instance.RefreshUI();
+    }
+
+    public void AddExperience(float amount) {
+        experience += amount;
         ResourceUIManager.Instance.RefreshUI();
     }
 
@@ -37,6 +43,16 @@ public class PlayerStats : ScriptableObject {
         }
         else {
             Debug.Log("Not enough energy!");
+        }
+    }
+
+    public void ConsumeExperience(float amount) {
+        if (experience >= amount) {
+            experience -= amount;
+            ResourceUIManager.Instance.RefreshUI();
+        }
+        else {
+            Debug.Log("Not enough experience!");
         }
     }
 }

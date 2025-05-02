@@ -10,13 +10,16 @@ public class RobotMouse : MonoBehaviour {
 
     private List<Vector2Int> _lastPath;
     private MazeCell[,] _mazeGrid;
+    private Vector2Int _startPosition;
     private Vector2Int _currentPosition;
     private Vector2Int _goalPosition;
 
     private IMouseMovementStrategy _movementStrategy;
+    private bool _goalReached;
 
     public void Initialize(MazeCell[,] mazeGrid, Vector2Int start, Vector2Int goal) {
         _mazeGrid = mazeGrid;
+        _startPosition = start;
         _currentPosition = start;
         _goalPosition = goal;
     }
@@ -52,7 +55,9 @@ public class RobotMouse : MonoBehaviour {
 
         // calculate the path based on the mouse movement strategy that has been set via SetMovementStrategy
         List<Vector2Int> path = _movementStrategy.CalculatePath(_currentPosition, _goalPosition, _mazeGrid);
+        _goalReached = path[^1] == _goalPosition;
         SetPath(path, _mazeGrid);
+
     }
 
 
@@ -100,6 +105,9 @@ public class RobotMouse : MonoBehaviour {
                 transform.eulerAngles = new Vector3(90f, 0f, 0);
                 yield return null;
             }
+        }
+        if(_goalReached) {
+            StartCoroutine(ExperienceManager.Instance.GiveEndOfRoundReward(_startPosition, _goalPosition, _mazeGrid));
         }
     }
 

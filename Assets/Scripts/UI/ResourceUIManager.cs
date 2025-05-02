@@ -7,6 +7,7 @@ public class ResourceUIManager : MonoBehaviour {
 
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private TMP_Text energyText;
+    [SerializeField] private TMP_Text experienceText;
 
     public PlayerStats playerStats;
 

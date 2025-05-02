@@ -21,6 +21,11 @@ public class FloatingPopupManager : MonoBehaviour {
             Instance = this;
     }
 
+    public void ShowPopup(string message, Vector3 worldPosition, PopupType popupType) {
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+        ShowPopup(message, screenPosition, popupType);
+    }
+
     public void ShowPopup(string message, Vector2 screenPosition, PopupType popupType) {
 
         // Instantiate the popup prefab and get the FloatingPopup component
@@ -47,15 +52,11 @@ public class FloatingPopupManager : MonoBehaviour {
 
     private Sprite GetIconForPopupType(PopupType popupType) {
         // Select the appropriate icon based on the type
-        switch (popupType) {
-            case PopupType.Energy:
-                return EnergyManager.Instance.energyIcon;  // You can use the energy icon from EnergyManager
-            case PopupType.Gold:
-                return GoldManager.Instance.goldIcon;     // Example for a GoldManager
-            case PopupType.XP:
-                return null;         // Example for an XPManager
-            default:
-                return null;
-        }
+        return popupType switch {
+            PopupType.Energy => EnergyManager.Instance.energyIcon,
+            PopupType.Gold => GoldManager.Instance.goldIcon,
+            PopupType.XP => ExperienceManager.Instance.experienceIcon,
+            _ => null,
+        };
     }
 }

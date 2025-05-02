@@ -1919,6 +1919,53 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &928354387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928354388}
+  - component: {fileID: 928354389}
+  m_Layer: 0
+  m_Name: ExperienceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &928354388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928354387}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1563749499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &928354389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928354387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876958014acb9e848b70d3a8b4c5ecdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiencePerTile: 10
+  playerStats: {fileID: 11400000, guid: 89d45515973a5cf4cbaa0b6e4f8dce86, type: 2}
+  experienceIcon: {fileID: 21300000, guid: 81b69cefb272da648843565470b19acc, type: 3}
 --- !u!1 &944245391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,7 +2141,7 @@ MonoBehaviour:
   - {r: 0.30588236, g: 0.64705884, b: 0.8509804, a: 0}
   - {r: 0.5019608, g: 0.8117647, b: 0.6627451, a: 0}
   _mazeMaterial: {fileID: 2100000, guid: 37f1a5f29f7e27f4f907da348d6f3c15, type: 2}
-  ShowDebugText: 1
+  ShowDebugText: 0
 --- !u!4 &950726330
 Transform:
   m_ObjectHideFlags: 0
@@ -3520,6 +3567,7 @@ Transform:
   m_Children:
   - {fileID: 1071662631}
   - {fileID: 1582203818}
+  - {fileID: 928354388}
   m_Father: {fileID: 2135057273}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582203817
@@ -4578,6 +4626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldText: {fileID: 1020427276}
   energyText: {fileID: 1261898129}
+  experienceText: {fileID: 0}
   playerStats: {fileID: 11400000, guid: 89d45515973a5cf4cbaa0b6e4f8dce86, type: 2}
 --- !u!1 &1959508733
 GameObject:

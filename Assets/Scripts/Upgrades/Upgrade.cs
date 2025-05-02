@@ -8,6 +8,7 @@ public class Upgrade : ScriptableObject {
     public string description;
     public Sprite icon;
     public int baseCost;
+    public float growthRate;
     public FloatingPopupManager.PopupType currency;
     public int baseLevel;
     public int maxLevel;
@@ -17,7 +18,7 @@ public class Upgrade : ScriptableObject {
 
     public int GetCostForLevel(int level) {
         //TODO: a switch case to allow for different formulas per upgrade name/category
-        return Mathf.RoundToInt(baseCost * Mathf.Pow(1.15f, level));
+        return Mathf.RoundToInt(baseCost * Mathf.Pow(growthRate, level));
     }
 
     public float GetRewardForLevel(int level) {
