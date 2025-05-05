@@ -25,6 +25,8 @@ public class MazeCell : MonoBehaviour
     public bool HasFrontWall;
     public bool HasBackWall;
 
+    public bool HasCoin = false;
+
     public TMP_Text DebugText;
 
     public bool IsVisited { get; private set; }

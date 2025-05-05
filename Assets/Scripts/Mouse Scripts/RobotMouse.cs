@@ -68,7 +68,7 @@ public class RobotMouse : MonoBehaviour {
 
         path.RemoveAt(0); // Delete the (0,0) to not cost the player energy for nothing
         //MazeUtils.PrintPath(path);
-        MazeUtils.PrintPathLength(path);
+        //MazeUtils.PrintPathLength(path);
 
         foreach (Vector2Int cellPos in path) {
             Vector3 worldPos = mazeGrid[cellPos.x, cellPos.y].transform.position;
@@ -80,9 +80,7 @@ public class RobotMouse : MonoBehaviour {
     }
 
     public IEnumerator FollowPath() {
-        Debug.Log("Following Path");
         while (_waypoints.Count > 0) {
-            Debug.Log("Is moving: " + _isMoving);
             if (!_isMoving) {
                 yield break;
             }

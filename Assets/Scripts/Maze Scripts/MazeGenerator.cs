@@ -11,6 +11,8 @@ public class MazeGenerator : MonoBehaviour {
 
     public static MazeGenerator Instance { get; private set; }
 
+    public GoldSpawner GoldSpawner;
+
     [SerializeField]
     private MazeCell _mazeCellPrefab;
 
@@ -53,6 +55,24 @@ public class MazeGenerator : MonoBehaviour {
         Instance = this;
     }
 
+    private void DestroyPreviousMaze() {
+        //try to find Maze GO, destroy it
+        GameObject MazeGO = GameObject.Find("Maze");
+        if (MazeGO != null) {
+            Destroy(MazeGO);
+        }
+
+        GameObject CoinsGO = GameObject.Find("CoinsGO");
+        if (CoinsGO != null) {
+            Destroy(CoinsGO);
+        }
+
+        GameObject MouseGO = GameObject.Find("Mouse(Clone)");
+        if (MouseGO != null) {
+            Destroy(MouseGO);
+        }
+    }
+
     public void GenerateAMaze() {
         _timeToGenerate = UV.GenerationTime;
         _mazeWidth = UV.MaxMapWidth;
@@ -60,12 +80,10 @@ public class MazeGenerator : MonoBehaviour {
 
 
         _mazeGrid = new MazeCell[_mazeWidth, _mazeHeight];
-        //try to find Maze GO, destroy it and instantiate a new one
-        GameObject MazeGO = GameObject.Find("Maze");
-        if (MazeGO != null) {
-            Destroy(MazeGO);
-        }
-        MazeGO = new GameObject("Maze");
+
+        DestroyPreviousMaze();
+
+        GameObject MazeGO = new GameObject("Maze");
 
         for (int x = 0; x < _mazeWidth; x++) {
             for (int z = 0; z < _mazeHeight; z++) {
@@ -85,10 +103,7 @@ public class MazeGenerator : MonoBehaviour {
         _startTime = Time.time;
         IsGenerating = true;
         CreateAndSolveUIManager.Instance.DisableButton();
-        GameObject MouseGO = GameObject.Find("Mouse(Clone)");
-        if (MouseGO != null) {
-            Destroy(MouseGO);
-        }
+        
         RandomizeColour();
         StartCoroutine(GenerateMaze(null, _mazeGrid[0, 0]));
     }
@@ -111,6 +126,7 @@ public class MazeGenerator : MonoBehaviour {
 
         if (previousCell == null) {
             IsGenerating = false;
+            GoldSpawner.SpawnCoins(_mazeGrid, _mazeGrid[0,0], _mazeGrid[_mazeWidth - 1, _mazeHeight - 1]);
             CreateAndSolveUIManager.Instance.EnableButton();
             SpawnMouse();
         }
