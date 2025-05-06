@@ -31,14 +31,16 @@ public class ExperienceManager : MonoBehaviour {
         float waitTime = _animationDuration / path.Count;
 
         foreach (Vector2Int cellPos in path) {
-            Vector3 worldPos = maze[cellPos.x, cellPos.y].transform.position;
-            // worldPos.y = transform.position.y; // keep mouse on same Y level
             AddExperience(experiencePerTile);
+            if (maze[cellPos.x, cellPos.y]) {
+                Vector3 worldPos = maze[cellPos.x, cellPos.y].transform.position;
+                // worldPos.y = transform.position.y; // keep mouse on same Y level
 
-            // Visually show the + n Experience Symbol on screen
-            // Show floating popup
-            FloatingPopupManager.Instance.ShowPopup($"+{experiencePerTile}", worldPos, FloatingPopupManager.PopupType.XP);
-            yield return new WaitForSeconds(waitTime);
+                // Visually show the + n Experience Symbol on screen
+                // Show floating popup
+                FloatingPopupManager.Instance.ShowPopup($"+{experiencePerTile}", worldPos, FloatingPopupManager.PopupType.XP);
+                yield return new WaitForSeconds(waitTime);
+            }
         }
     }
 

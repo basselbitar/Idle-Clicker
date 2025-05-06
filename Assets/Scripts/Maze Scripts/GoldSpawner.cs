@@ -7,16 +7,21 @@ using UV = Utilities.UpgradeableVariables;
 public class GoldSpawner : MonoBehaviour
 {
     public GameObject goldCoinPrefab;
-    public int baseSpawnCount;
-    public float spawnChancePerCell = 0.1f; // Base Chance for each cell to spawn a coin
 
-    [Header("Upgrade Values")]
-    public int spawnBonus = 0; // Bonus number of coins from upgrades
-    public float chanceBonus = 0f; // Additional chance from upgrades
+    public int baseSpawnCount;
+    public float spawnChancePerCell; // Base Chance for each cell to spawn a coin
+    public int spawnBonus; // Bonus number of coins from upgrades
+    public float chanceBonus; // Additional chance from upgrades
 
     private MazeCell[,] maze;
 
     public void SpawnCoins(MazeCell[,] mazeGrid, MazeCell start, MazeCell end) {
+
+        baseSpawnCount = UV.BaseGoldSpawnCount;
+        spawnBonus = UV.ExtraGoldSpawnCount;
+        spawnChancePerCell = UV.BaseGoldSpawnProbabilityPerCell;
+        chanceBonus = UV.ExtraGoldSpawnProbabilityPerCell;
+
         maze = mazeGrid;
         List<MazeCell> allCells = new();
         baseSpawnCount = 1; //TODO: calculate based on width and height somehow

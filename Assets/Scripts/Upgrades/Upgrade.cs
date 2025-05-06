@@ -13,7 +13,7 @@ public class Upgrade : ScriptableObject {
     public int baseLevel;
     public int maxLevel;
     public float [] rewards;
-    public int listOfRequirements; // TODO
+    public int listOfRequirements;
     public UpgradeCategory category;
 
     public int GetCostForLevel(int level) {
@@ -36,9 +36,13 @@ public class Upgrade : ScriptableObject {
             case UpgradeNames.MAZE_FASTER_GENERATION:
                 return $"Reduces generation time from {rewards[level - 1]}s -> {rewards[level]}s";
             case UpgradeNames.MAZE_WIDTH:
-                return $"Increases maze width from {(int) rewards[level - 1]} -> {(int)rewards[level]}";
+                return $"Increases maze width from {Mathf.RoundToInt(rewards[level - 1])} -> {Mathf.RoundToInt(rewards[level])}";
             case UpgradeNames.MAZE_HEIGHT:
-                return $"Increases maze height from {(int)rewards[level - 1]} -> {(int)rewards[level]}";
+                return $"Increases maze height from {Mathf.RoundToInt(rewards[level - 1])} -> {Mathf.RoundToInt(rewards[level])}";
+            case UpgradeNames.MAZE_GOLD_CHANCE:
+                return $"Increases each cell's chance of gold from {Mathf.RoundToInt(rewards[level - 1] * 100)}% -> {Mathf.RoundToInt(rewards[level] * 100)}%";
+            case UpgradeNames.MAZE_GOLD_GUARANTEED:
+                return $"Spawns an extra {Mathf.RoundToInt(rewards[level - 1])} -> {Mathf.RoundToInt(rewards[level])} gold per level";
             case UpgradeNames.MAZE_TRAPS:
                 break;
             case UpgradeNames.MAZE_WATER:
@@ -59,7 +63,6 @@ public class Upgrade : ScriptableObject {
                 return $"Solve the puzzle twice at a 1% chance of proc.";
             case UpgradeNames.MOUSE_SNIFF_BOOST:
                 return $"The mouse solves the maze with the shortest path immediately";
-
             default:
                 Debug.LogError($"Unknown upgrade: {upgradeName} is requiring a description");
                 return "Placeholder Description";

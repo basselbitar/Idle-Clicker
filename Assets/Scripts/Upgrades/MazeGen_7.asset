@@ -10,26 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4364575debdfdf943b65af6b57524425, type: 3}
-  m_Name: MazeGen_4
+  m_Name: MazeGen_7
   m_EditorClassIdentifier: 
-  upgradeName: Lucky Mouse
-  description: Increases the chance of a mouse finding gold
+  upgradeName: Water Pits
+  description: Placeholder description of a maze gen upgrade
   icon: {fileID: 21300000, guid: 789ebb3a96650f54181c72e251462f7a, type: 3}
-  baseCost: 40
+  baseCost: 50
   growthRate: 1.15
   currency: 0
   baseLevel: 1
-  maxLevel: 10
-  rewards:
-  - 0.01
-  - 0.02
-  - 0.03
-  - 0.04
-  - 0.05
-  - 0.06
-  - 0.07
-  - 0.08
-  - 0.09
-  - 0.1
+  maxLevel: 15
+  rewards: []
   listOfRequirements: 0
   category: 0

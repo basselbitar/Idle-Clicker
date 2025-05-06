@@ -294,8 +294,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 630ece4910790b442918e52e06619f73, type: 2}
   - {fileID: 11400000, guid: 86a932e77428f09418f6f4b5bc0f7713, type: 2}
   - {fileID: 11400000, guid: f49a4b098f38536478e6a4eb1e25241b, type: 2}
-  - {fileID: 11400000, guid: 8d6b16ae98ebc06429ae91d494a935f4, type: 2}
+  - {fileID: 11400000, guid: c9cabe33b2ea9094bbf970b70f21da2c, type: 2}
+  - {fileID: 11400000, guid: dd89871ff3f6d47418b432ec53d14e4c, type: 2}
   - {fileID: 11400000, guid: 2412fc825db369145831b11c5fe4d169, type: 2}
+  - {fileID: 11400000, guid: 8d6b16ae98ebc06429ae91d494a935f4, type: 2}
   playerStats: {fileID: 11400000, guid: 89d45515973a5cf4cbaa0b6e4f8dce86, type: 2}
   runtimeUpgrades: []
 --- !u!1 &146160329
@@ -822,7 +824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &410545719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1975,7 +1977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldCoinPrefab: {fileID: 8311234267117325794, guid: 10e48b4c03bb7d34fb5e53f01c29faed, type: 3}
   baseSpawnCount: 1
-  spawnChancePerCell: 0.1
+  spawnChancePerCell: 0
   spawnBonus: 0
   chanceBonus: 0
 --- !u!1 &944245391

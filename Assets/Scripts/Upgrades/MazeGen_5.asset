@@ -12,14 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4364575debdfdf943b65af6b57524425, type: 3}
   m_Name: MazeGen_5
   m_EditorClassIdentifier: 
-  upgradeName: Water Pits
-  description: Placeholder description of a maze gen upgrade
+  upgradeName: Midas Maze
+  description: Placeholder description of a midas touch
   icon: {fileID: 21300000, guid: 789ebb3a96650f54181c72e251462f7a, type: 3}
-  baseCost: 50
+  baseCost: 60
   growthRate: 1.15
   currency: 0
   baseLevel: 1
-  maxLevel: 15
-  rewards: []
+  maxLevel: 10
+  rewards:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
   listOfRequirements: 0
   category: 0

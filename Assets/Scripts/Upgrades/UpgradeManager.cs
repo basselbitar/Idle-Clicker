@@ -154,7 +154,13 @@ public class UpgradeManager : MonoBehaviour {
             case UpgradeNames.MAZE_HEIGHT:
                 UV.MaxMapHeight = (int) upgradeState.data.rewards[level];
                 CreateAndSolveUIManager.Instance.UpdateMazePrice();
-                break;                                                                                                 
+                break;
+            case UpgradeNames.MAZE_GOLD_CHANCE:
+                UV.ExtraGoldSpawnProbabilityPerCell = upgradeState.data.rewards[level];
+                break;
+            case UpgradeNames.MAZE_GOLD_GUARANTEED:
+                UV.ExtraGoldSpawnCount = (int)upgradeState.data.rewards[level];
+                break;
             case UpgradeNames.MAZE_TRAPS:
                 break;
             case UpgradeNames.MAZE_WATER:
