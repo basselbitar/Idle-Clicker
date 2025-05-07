@@ -393,11 +393,11 @@ MonoBehaviour:
   upgradePrefab: {fileID: 819052430807010021, guid: 02055c4ab4450ba4f839895051510c70, type: 3}
   upgradeParent: {fileID: 894683300}
   upgrades:
-  - {fileID: 11400000, guid: 630ece4910790b442918e52e06619f73, type: 2}
-  - {fileID: 11400000, guid: 86a932e77428f09418f6f4b5bc0f7713, type: 2}
-  - {fileID: 11400000, guid: f49a4b098f38536478e6a4eb1e25241b, type: 2}
-  - {fileID: 11400000, guid: 8d6b16ae98ebc06429ae91d494a935f4, type: 2}
-  - {fileID: 11400000, guid: 2412fc825db369145831b11c5fe4d169, type: 2}
+  - {fileID: 11400000, guid: fbb04e6c4ad4d2645bff3782e0b97e5f, type: 2}
+  - {fileID: 11400000, guid: b9b816cb5911b034fac02576b0757d19, type: 2}
+  - {fileID: 11400000, guid: 6710261c766646b4aaccbf945b4da61c, type: 2}
+  - {fileID: 11400000, guid: e8b027ff26d839446b68758f9a4f61ea, type: 2}
+  - {fileID: 11400000, guid: b2949b12794e3fd4788b8422a4e4cfd5, type: 2}
   playerStats: {fileID: 11400000, guid: 89d45515973a5cf4cbaa0b6e4f8dce86, type: 2}
   runtimeUpgrades: []
 --- !u!1 &162415388

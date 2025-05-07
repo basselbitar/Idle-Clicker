@@ -14,7 +14,11 @@ public static class UpgradeNames
     public const string MAZE_WATER = "Water Pits";
 
     // Idle Upgrades
-    public const string IDLE_UPGRADE1 = "";
+    public const string IDLE_FACTORY_1 = "Energy Generator 1";
+    public const string IDLE_FACTORY_2 = "Energy Generator 2";
+    public const string IDLE_FACTORY_3 = "Energy Generator 3";
+    public const string IDLE_GOLD_VALUE = "Gold Value";
+    public const string IDLE_XP_VALUE = "XP Value";
 
     // Mouse Upgrades
     public const string MOUSE_SPEED = "Speed";

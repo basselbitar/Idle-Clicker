@@ -23,5 +23,9 @@ namespace Utilities {
         public static int MouseIntelligence = 1;
         public static float MouseStepCost = 5f;
         public static int MouseMaxNumberOfMoves = 50;
+
+        // Collectables values
+        public static int GoldValue = 1;
+        public static int ExperienceGainedPerTile = 1;
     }
 }

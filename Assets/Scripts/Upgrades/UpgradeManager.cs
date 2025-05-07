@@ -159,12 +159,30 @@ public class UpgradeManager : MonoBehaviour {
                 UV.ExtraGoldSpawnProbabilityPerCell = upgradeState.data.rewards[level];
                 break;
             case UpgradeNames.MAZE_GOLD_GUARANTEED:
-                UV.ExtraGoldSpawnCount = (int)upgradeState.data.rewards[level];
+                UV.ExtraGoldSpawnCount = (int) upgradeState.data.rewards[level];
                 break;
             case UpgradeNames.MAZE_TRAPS:
                 break;
             case UpgradeNames.MAZE_WATER:
                 break;
+
+            //Idle Upgrades
+            case UpgradeNames.IDLE_FACTORY_1:
+                break;
+            case UpgradeNames.IDLE_FACTORY_2:
+                break;
+            case UpgradeNames.IDLE_FACTORY_3:
+                break;
+            case UpgradeNames.IDLE_GOLD_VALUE:
+                UV.GoldValue = (int) upgradeState.data.rewards[level];
+                break;
+            case UpgradeNames.IDLE_XP_VALUE:
+                UV.ExperienceGainedPerTile = (int) upgradeState.data.rewards[level];
+                break;
+
+
+
+
 
             //Mouse Upgrades
             case UpgradeNames.MOUSE_SPEED:

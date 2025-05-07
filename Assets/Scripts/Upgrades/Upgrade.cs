@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum UpgradeCategory { Maze, IdleClicker, Mouse }
+public enum UpgradeCategory { Maze, Idle, Mouse }
 
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Game/Upgrade")]
 public class Upgrade : ScriptableObject {
@@ -50,9 +50,19 @@ public class Upgrade : ScriptableObject {
 
 
             // ----------------- Idle Upgrades -----------------
+            case UpgradeNames.IDLE_FACTORY_1:
+                return $"Produce energy at: {rewards[level - 1]} -> {rewards[level]}";
+            case UpgradeNames.IDLE_FACTORY_2:
+                return $"Produce energy at {rewards[level - 1]} -> {rewards[level]}";
+            case UpgradeNames.IDLE_FACTORY_3:
+                return $"Factory 3 Description";
+            case UpgradeNames.IDLE_GOLD_VALUE:
+                return $"Increase the gold collected from {Mathf.RoundToInt(rewards[level - 1])} -> {Mathf.RoundToInt(rewards[level])}";
+            case UpgradeNames.IDLE_XP_VALUE:
+                return $"Increase the XP per tile from {Mathf.RoundToInt(rewards[level - 1])} -> {Mathf.RoundToInt(rewards[level])}";
+
 
             // ----------------- Mouse Upgrades -----------------
-
             case UpgradeNames.MOUSE_SPEED:
                 return $"Increases speed from {rewards[level-1]} -> {rewards[level]}";
             case UpgradeNames.MOUSE_INTELLIGENCE:

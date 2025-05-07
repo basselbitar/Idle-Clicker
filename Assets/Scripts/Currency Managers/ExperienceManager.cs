@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class ExperienceManager : MonoBehaviour {
     public static ExperienceManager Instance { get; private set; }
 
-    public int experiencePerTile = 10;
+    public int experiencePerTile;
 
     public PlayerStats playerStats;
     public Sprite experienceIcon;
@@ -25,7 +26,7 @@ public class ExperienceManager : MonoBehaviour {
     }
 
     public IEnumerator GiveEndOfRoundReward(Vector2Int startPos, Vector2Int endPos, MazeCell[,] maze) {
-
+        experiencePerTile = UpgradeableVariables.ExperienceGainedPerTile;
         MazeSolver mazeSolver = new();
         List<Vector2Int> path = mazeSolver.CalculatePath(startPos, endPos, maze);
         float waitTime = _animationDuration / path.Count;

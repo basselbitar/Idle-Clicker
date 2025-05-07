@@ -1,8 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class GoldCoin : MonoBehaviour
 {
-    public int value = 1;
+    public int value;
+
+    public void Awake() {
+        value = UpgradeableVariables.GoldValue;
+    }
 }
