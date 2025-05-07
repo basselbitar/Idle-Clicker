@@ -59,6 +59,6 @@ public class EnergyManager : MonoBehaviour {
     }
 
     public bool HasEnergy(float amount) {
-        return playerStats.energy >= amount;
+        return playerStats.energy >= Mathf.Max(1,amount);
     }
 }

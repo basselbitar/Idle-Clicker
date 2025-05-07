@@ -182,8 +182,6 @@ public class UpgradeManager : MonoBehaviour {
 
 
 
-
-
             //Mouse Upgrades
             case UpgradeNames.MOUSE_SPEED:
                 UV.MouseSpeed = upgradeState.data.rewards[level];
@@ -193,6 +191,7 @@ public class UpgradeManager : MonoBehaviour {
                 UV.MouseMaxNumberOfMoves = 50 + (10 * level);
                 break;
             case UpgradeNames.MOUSE_STAMINA:
+                UV.MouseStepCost = upgradeState.data.rewards[level];
                 break;
             case UpgradeNames.MOUSE_DOUBLE_RUN:
                 break;

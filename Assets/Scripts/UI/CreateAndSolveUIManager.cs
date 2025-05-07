@@ -73,7 +73,7 @@ public class CreateAndSolveUIManager : MonoBehaviour {
         }
         else {
             FindObjectOfType<RobotMouse>()._isMoving = false;
-            _solveButtonText.text = $"Solve ({UV.MouseStepCost})";
+            _solveButtonText.text = $"Solve ({System.Math.Round(UV.MouseStepCost, 2)})";
         }
     }
 

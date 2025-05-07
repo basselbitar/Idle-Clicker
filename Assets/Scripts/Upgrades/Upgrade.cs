@@ -68,7 +68,7 @@ public class Upgrade : ScriptableObject {
             case UpgradeNames.MOUSE_INTELLIGENCE:
                 return $"Increases intelligence from {rewards[level-1]} -> {rewards[level]}";
             case UpgradeNames.MOUSE_STAMINA:
-                return $"Increases stamina so you can solve more puzzles";
+                return $"Robomouse only needs {System.Math.Round(rewards[level - 1], 2)} -> {System.Math.Round(rewards[level], 2)} per move";
             case UpgradeNames.MOUSE_DOUBLE_RUN:
                 return $"Solve the puzzle twice at a 1% chance of proc.";
             case UpgradeNames.MOUSE_SNIFF_BOOST:

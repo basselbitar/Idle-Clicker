@@ -26,7 +26,7 @@ public class RobotMouse : MonoBehaviour {
     }
     public void DetermineAndSetMovementStrategy() {
         int intel = UV.MouseIntelligence;
-        IMouseMovementStrategy moveStrategy= new RandomMovementStrategy(UV.MouseMaxNumberOfMoves); //TODO: set the limit on the max number of moves
+        IMouseMovementStrategy moveStrategy = new RandomMovementStrategy(UV.MouseMaxNumberOfMoves); //TODO: set the limit on the max number of moves
         if (intel >= 1 && intel <= 10) {
             moveStrategy = new RandomMovementStrategy(UV.MouseMaxNumberOfMoves); //TODO: set the limit on the max number of moves as an Upgradeable Variable
         }
@@ -80,12 +80,10 @@ public class RobotMouse : MonoBehaviour {
     }
 
     public IEnumerator FollowPath() {
+        int stepCount = 0;
         while (_waypoints.Count > 0) {
-            if (!_isMoving) {
-                yield break;
-            }
-            Vector3 targetPos = _waypoints.Dequeue();
-            while(!EnergyManager.Instance.HasEnergy(UV.MouseStepCost)) {
+         
+            while (!EnergyManager.Instance.HasEnergy(UV.MouseStepCost)) {
                 yield return null;
                 //TODO: visually tell the user that the mouse is out of energy
                 //maybe send mouse to sleep so it can recharge energy faster
@@ -94,9 +92,26 @@ public class RobotMouse : MonoBehaviour {
                 }
             }
 
-            
+            if (!_isMoving) {
+                yield break;
+            }
+
+            Vector3 targetPos = _waypoints.Dequeue();
+
             // spend the energy needed to move and move the mouse
-            EnergyManager.Instance.ConsumeEnergy(UV.MouseStepCost);
+            if (UV.MouseStepCost >= 1) {
+                EnergyManager.Instance.ConsumeEnergy(UV.MouseStepCost);
+            }
+            else {
+                //only cost 1 energy every N steps
+                stepCount++;
+                int N = Mathf.RoundToInt(1f / UV.MouseStepCost);
+                if (stepCount >= N) {
+                    EnergyManager.Instance.ConsumeEnergy(1);
+                    stepCount = 0;
+                }
+            }
+
             while (Vector3.Distance(transform.position, targetPos) > 0.01f) {
                 moveSpeed = UV.MouseSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
